@@ -1,12 +1,15 @@
 import type { AppProps } from 'next/app'
 import { Layout } from '@/components/Layout'
 import '@/styles/tailwind.css'
+import { KotlaProvider } from '@/contexts/Kotla'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <KotlaProvider>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </KotlaProvider>
   )
 }
 

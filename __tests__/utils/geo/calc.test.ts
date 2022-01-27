@@ -1,4 +1,4 @@
-import { getBearing, getDistance } from '@/utils/geo/calc'
+import { getBearing, getDistance } from '@/lib/geo/calc'
 
 describe('utils/geo/calc', () => {
   describe('getBearing', () => {

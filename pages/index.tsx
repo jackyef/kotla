@@ -1,47 +1,25 @@
 import type { NextPage } from 'next'
-import clsx from 'clsx'
 import { Guesses } from '@/components/Guesses'
 import { GuessForm } from '@/components/GuessForm'
+import { useContext } from 'react'
+import { KotlaContext } from '@/contexts/Kotla'
 
 const Home: NextPage = () => {
-  const handleSubmit = (guess: string) => {
-    console.log(guess)
+  const { guesses, guess } = useContext(KotlaContext)
+
+  console.log({ guesses })
+
+  const handleSubmit = (cityName: string) => {
     // TODO: Handle guess here
+    guess(cityName)
   }
 
   return (
     <>
-      <h1
-        className={clsx(
-          'text-4xl',
-          'font-bold',
-          'bg-gradient-to-r',
-          'from-teal-600',
-          'to-blue-800',
-          'text-transparent',
-          'bg-clip-text',
-          'mt-8',
-          'mb-12'
-        )}
-      >
-        Kotla{' '}
-        <button
-          className={clsx(
-            'text-sm',
-            'decoration-cyan-600',
-            'underline',
-            'underline-offset-1',
-            'decoration-dotted'
-          )}
-        >
-          (Apa ini?)
-        </button>
-      </h1>
-
       <Guesses.Container>
-        <Guesses.Row cityName="Malang" />
-        <Guesses.Row cityName="Pekanbaru" />
-        <Guesses.Row cityName="Jakarta" />
+        {guesses.map((guessedCity) => (
+          <Guesses.Row key={guessedCity.name} city={guessedCity} />
+        ))}
       </Guesses.Container>
 
       <GuessForm onSubmit={handleSubmit} />

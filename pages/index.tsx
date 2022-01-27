@@ -1,16 +1,12 @@
 import type { NextPage } from 'next'
-import { FormEvent, useRef } from 'react'
 import clsx from 'clsx'
-import { Button } from '@/components/inputs/Button'
-import { Input } from '@/components/inputs/Input'
 import { Guesses } from '@/components/Guesses'
+import { GuessForm } from '@/components/GuessForm'
 
 const Home: NextPage = () => {
-  const inputRef = useRef<HTMLInputElement>(null)
-
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault()
-    console.log(inputRef.current?.value)
+  const handleSubmit = (guess: string) => {
+    console.log(guess)
+    // TODO: Handle guess here
   }
 
   return (
@@ -48,29 +44,7 @@ const Home: NextPage = () => {
         <Guesses.Row cityName="Jakarta" />
       </Guesses.Container>
 
-      <form
-        className={clsx('flex', 'gap-2', 'flex-col', 'md:flex-row')}
-        onSubmit={handleSubmit}
-      >
-        <Input
-          ref={inputRef}
-          className={clsx('flex-1')}
-          placeholder="Tebak di sini"
-        />
-        <Button
-          className={clsx(
-            'bg-teal-600',
-            'text-white',
-            'focus:shadow-teal-600',
-            'focus:shadow-lg',
-            'hover:shadow-teal-600',
-            'hover:shadow-lg'
-          )}
-          type="submit"
-        >
-          Tebak
-        </Button>
-      </form>
+      <GuessForm onSubmit={handleSubmit} />
     </>
   )
 }

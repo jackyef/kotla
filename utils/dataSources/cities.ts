@@ -2,8 +2,8 @@ import _cities from './cities.json'
 
 export type City = {
   name: string,
-  lat: string,
-  lng: string,
+  lat: number,
+  lng: number,
   province: string
 }
 

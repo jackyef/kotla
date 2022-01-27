@@ -5,7 +5,7 @@ export const useFocusableClass = () => {
     'rounded-md',
     'outline-none',
     'border-solid',
-    'border-4',
+    'border-2',
     'border-transparent',
     'focus:border-teal-500',
   )

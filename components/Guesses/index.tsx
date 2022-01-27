@@ -128,7 +128,23 @@ const Row: FC<RowProps> = ({ city }) => {
   )
 }
 
+export const RowSpacer = () => (
+  <li
+    className={clsx(
+      'bg-transparent',
+      'flex',
+      'gap-2',
+      'rounded-md',
+      'py-2',
+      'px-4'
+    )}
+  >
+    &nbsp;
+  </li>
+)
+
 export const Guesses = {
   Container,
-  Row
+  Row,
+  RowSpacer
 }

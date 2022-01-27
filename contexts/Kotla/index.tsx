@@ -6,6 +6,7 @@ type KotlaContextValue = {
   isLoading: boolean
   guesses: City[]
   guess: (cityName: string) => void
+  gameState: GameState['state']
 }
 
 type GameState = {
@@ -17,8 +18,11 @@ export const KotlaContext = createContext<KotlaContextValue>({
   cityOfTheDay: null as unknown as City,
   isLoading: true,
   guesses: [],
-  guess: () => {}
+  guess: () => {},
+  gameState: 'in_progress'
 })
+
+export const MAX_GUESS_COUNT = 6
 
 export const KotlaProvider: FC = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true)
@@ -52,7 +56,7 @@ export const KotlaProvider: FC = ({ children }) => {
           state: 'won'
         }
       })
-    } else if (gameState.guesses.length === 5) {
+    } else if (gameState.guesses.length === MAX_GUESS_COUNT - 1) {
       setGameState((prev) => {
         return {
           ...prev,
@@ -92,7 +96,8 @@ export const KotlaProvider: FC = ({ children }) => {
         cityOfTheDay,
         isLoading,
         guesses: gameState.guesses,
-        guess
+        guess,
+        gameState: gameState.state
       }}
     >
       {children}

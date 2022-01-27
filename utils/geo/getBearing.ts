@@ -24,8 +24,7 @@ export const getBearing = (pointA: Point, pointB: Point) => {
     Math.cos(lat1) * Math.sin(lat2) -
     Math.sin(lat1) * Math.cos(lat2) * Math.cos(lng2 - lng1)
 
-  let bearing = Math.atan2(y, x)
-  bearing = toDegrees(bearing)
+  const bearing = toDegrees(Math.atan2(y, x))
 
   return (bearing + 360) % 360
 }

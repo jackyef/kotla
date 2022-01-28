@@ -6,11 +6,13 @@ import {
   GameState
 } from './constants'
 
-localForage.config({
-  driver: localForage.LOCALSTORAGE,
-  name: '__kotla',
-  version: 1 // Changes in type GameState and AllTimeStats should bump this number,
-})
+if (typeof window !== 'undefined') {
+  localForage.config({
+    driver: localForage.LOCALSTORAGE,
+    name: '__kotla',
+    version: 1 // Changes in type GameState and AllTimeStats should bump this number,
+  })
+}
 
 const GAME_STATE_KEY = 'gameState'
 

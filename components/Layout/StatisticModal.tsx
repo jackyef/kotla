@@ -1,6 +1,7 @@
 import { Modal } from '../Modal'
 import { Stats } from './Statistics/Stats'
 import { GuessDistribution } from './Statistics/GuessDistribution'
+import { GameResult } from './Statistics/GameResult'
 
 type Props = {
   onClose: () => void
@@ -12,6 +13,7 @@ export const StatisticModal = ({ onClose, isOpen }: Props) => {
     <Modal onClose={onClose} isOpen={isOpen} title="Statistik">
       <Stats />
       <GuessDistribution />
+      <GameResult />
     </Modal>
   )
 }

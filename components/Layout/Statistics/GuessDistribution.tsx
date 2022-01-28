@@ -13,7 +13,7 @@ export const GuessDistribution = () => {
 
   return (
     <>
-      <h3 className={clsx('mt-4', 'mb-2')}>Distribusi tebakan</h3>
+      <h3 className={clsx('mt-4', 'mb-2', 'text-lg')}>Distribusi tebakan</h3>
 
       <div>
         {guessDistribution.map(([guess, count]) => {

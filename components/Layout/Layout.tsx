@@ -1,25 +1,20 @@
+import { KotlaContext } from '@/contexts/Kotla'
 import clsx from 'clsx'
-import { FC, useState } from 'react'
+import { FC, useContext } from 'react'
 import { HelpCircle, BarChart2 } from 'react-feather'
 import { IconButton } from '../inputs/IconButton'
 import { HowToPlayModal } from './HowToPlayModal'
 import { StatisticModal } from './StatisticModal'
 
-type ModalState = 'help' | 'stats' | null
-
 export const Header = () => {
-  const [modalState, setModalState] = useState<ModalState>(null)
-
-  const closeModal = () => {
-    setModalState(null)
-  }
+  const { modalState, closeModal, openModal } = useContext(KotlaContext)
 
   return (
     <header className={clsx('flex', 'justify-between', 'mb-12')}>
       <IconButton
         aria-label="Bantuan"
         onClick={() => {
-          setModalState('help')
+          openModal('help')
         }}
       >
         <HelpCircle />
@@ -39,7 +34,7 @@ export const Header = () => {
       <IconButton
         aria-label="Statistik"
         onClick={() => {
-          setModalState('stats')
+          openModal('stats')
         }}
       >
         <BarChart2 />

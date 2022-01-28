@@ -1,5 +1,6 @@
 import { cities, City } from '@/utils/dataSources/cities'
 import { createContext, FC, useEffect, useState } from 'react'
+import confetti from 'canvas-confetti'
 import { AllTimeStats, DEFAULT_ALL_TIME_STATS, GameState } from './constants'
 import { useAllTimeStats } from './hooks/useAllTimeStats'
 import { useGameState } from './hooks/useGameState'
@@ -9,6 +10,8 @@ import {
   storeNumberOfTheDay
 } from './storage'
 
+export type ModalState = 'help' | 'stats' | null
+
 type KotlaContextValue = {
   cityOfTheDay: City
   isLoading: boolean
@@ -16,6 +19,9 @@ type KotlaContextValue = {
   guess: (cityName: string) => void
   gameState: GameState['state']
   allTimeStats: AllTimeStats
+  modalState: ModalState
+  closeModal: () => void
+  openModal: (modalState: ModalState) => void
 }
 
 export const KotlaContext = createContext<KotlaContextValue>({
@@ -24,12 +30,16 @@ export const KotlaContext = createContext<KotlaContextValue>({
   guesses: [],
   guess: () => {},
   gameState: 'in_progress',
-  allTimeStats: DEFAULT_ALL_TIME_STATS
+  allTimeStats: DEFAULT_ALL_TIME_STATS,
+  modalState: null,
+  closeModal: () => {},
+  openModal: () => {}
 })
 
 export const MAX_GUESS_COUNT = 6
 
 export const KotlaProvider: FC = ({ children }) => {
+  const [modalState, setModalState] = useState<ModalState>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [cityOfTheDay, setCityOfTheDay] = useState<City>(
     null as unknown as City
@@ -37,6 +47,10 @@ export const KotlaProvider: FC = ({ children }) => {
   const [[gameState, setGameState], isGameStateInitialized] = useGameState()
   const [[allTimeStats, setAllTimeStats], isAllTimeStatsInitialized] =
     useAllTimeStats()
+
+  const openModal = (newModalState: ModalState) => {
+    setModalState(newModalState)
+  }
 
   const guess = (cityName: string) => {
     if (!cityOfTheDay || !cityName) return
@@ -89,6 +103,9 @@ export const KotlaProvider: FC = ({ children }) => {
           state: 'won'
         }
       })
+
+      openModal('stats')
+      confetti()
     } else if (gameState.guesses.length === MAX_GUESS_COUNT - 1) {
       setGameState((prev) => {
         return {
@@ -105,6 +122,7 @@ export const KotlaProvider: FC = ({ children }) => {
           currentStreak: 0
         }
       })
+      openModal('stats')
     } else {
       setGameState((prev) => {
         return {
@@ -117,8 +135,14 @@ export const KotlaProvider: FC = ({ children }) => {
   }
 
   useEffect(() => {
+    if (isAllTimeStatsInitialized && allTimeStats.playCount === 0) {
+      // Onboard new players
+      openModal('help')
+    }
+  }, [allTimeStats, isAllTimeStatsInitialized])
+
+  useEffect(() => {
     if (!cityOfTheDay) {
-      const today = new Date()
       const ds = getTodayDateString()
 
       ;(async () => {
@@ -162,7 +186,12 @@ export const KotlaProvider: FC = ({ children }) => {
         guesses: gameState.guesses,
         guess,
         gameState: gameState.state,
-        allTimeStats
+        allTimeStats,
+        modalState,
+        closeModal: () => {
+          setModalState(null)
+        },
+        openModal
       }}
     >
       {children}

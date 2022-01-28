@@ -81,3 +81,11 @@ export const getTodayDateString = () => {
 
   return `${today.getFullYear()}${today.getMonth()}${today.getDate()}`
 }
+
+export const resetStorage = async () => {
+  await localForage.removeItem(NOTD_KEY)
+  await localForage.removeItem(GAME_STATE_KEY)
+  await localForage.removeItem(ALL_TIME_STATS_KEY)
+
+  window.location.reload()
+}

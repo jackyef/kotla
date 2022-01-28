@@ -6,6 +6,8 @@ export const MetaTags = () => {
     'Tebak kota rahasia dalam 6 percobaan. Kota baru tersedia setiap hari.'
   const keywords =
     'game, permainan, tebak, kata, kabupaten, kota, rahasia, wordle, indonesia, katla'
+  const url = 'https://kotla.vercel.app/'
+  const ogImage = 'https://kotla.vercel.app/og.png'
 
   /* teal-100 */
   const themeColor = '#CCFBF1'
@@ -15,15 +17,20 @@ export const MetaTags = () => {
       <title>{title}</title>
       <meta name="description" content={description} />
       <meta name="keywords" content={keywords} />
-      <meta property="og:url" content="https://kotla.vercel.app/" />
+      <meta property="og:url" content={url} />
       <meta property="og:type" content="website" />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:keywords" content={keywords} />
-      <meta property="og:image" content="https://kotla.vercel.app/og.png" />
+      <meta property="og:image" content={ogImage} />
 
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta property="twitter:domain" content="kotla.vercel.app" />
+      <meta property="twitter:card" content="summary_large_image" />
+      <meta property="twitter:site" content={url} />
+      <meta property="twitter:creator" content="@jackyef__" />
+      <meta property="twitter:title" content={title} />
+      <meta property="twitter:description" content={description} />
+      <meta property="twitter:image" content={ogImage} />
+      <meta property="twitter:url" content={url} />
 
       <meta name="theme-color" content={themeColor} />
 

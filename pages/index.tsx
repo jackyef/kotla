@@ -4,6 +4,8 @@ import { GuessForm } from '@/components/GuessForm'
 import { useContext } from 'react'
 import { KotlaContext, MAX_GUESS_COUNT } from '@/contexts/Kotla'
 import clsx from 'clsx'
+import { resetStorage } from '@/contexts/Kotla/storage'
+import { MetaTags } from '@/components/MetaTags/MetaTags'
 
 const Home: NextPage = () => {
   const { guesses, guess, gameState, isLoading, cityOfTheDay, hasError } =
@@ -27,6 +29,16 @@ const Home: NextPage = () => {
         Gagal memuat Kotla.
         <br />
         Silahkan muat ulang halaman ini.
+        <br />
+        <br />
+        Jika ini terjadi berulang kali,{' '}
+        <button
+          onClick={resetStorage}
+          className={clsx('rounded-lg', 'underline')}
+        >
+          bersihkan <i>cache</i> lokal
+        </button>
+        .
       </div>
     )
   }
@@ -38,6 +50,7 @@ const Home: NextPage = () => {
 
   return (
     <>
+      <MetaTags />
       <Guesses.Container>
         {!isLoading &&
           guesses.map((guessedCity) => (

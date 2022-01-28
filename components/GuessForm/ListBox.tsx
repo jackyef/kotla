@@ -12,7 +12,7 @@ const Highlighter = ({ value, query }: HighlighterProps) => {
 
   const __html = value.replace(
     new RegExp(`(${words})`, 'gi'),
-    '<span class="font-extrabold">$1</span>'
+    '<span class="font-bold">$1</span>'
   )
 
   return <span dangerouslySetInnerHTML={{ __html }} />
@@ -35,7 +35,7 @@ const Container: FC = ({ children }) => {
         'overflow-y-auto'
       )}
       style={{
-        maxHeight: '56vh'
+        maxHeight: '30vh'
       }}
     >
       {children}
@@ -59,6 +59,7 @@ const Item = ({ onClick, value, query }: ItemProps) => {
       }}
       className={clsx(
         'p-3',
+        'tracking-wide',
         'text-left',
         'outline-none',
         'focus:outline-none',

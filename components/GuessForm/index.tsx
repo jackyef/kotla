@@ -70,6 +70,7 @@ export const GuessForm = ({ onSubmit, disabled }: Props) => {
       onSubmit(value)
 
       setValue('')
+      returnFocusToInput()
     }
   }
 

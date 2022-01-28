@@ -19,7 +19,9 @@ export const Button: FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
         'hover:bg-teal-200',
         'font-medium',
         'disabled:cursor-not-allowed',
-        'disabled:bg-slate-400',
+        'disabled:text-slate-600',
+        'disabled:bg-slate-200',
+        'transition-colors',
         className
       )}
       {...props}

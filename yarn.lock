@@ -3497,6 +3497,13 @@ quick-lru@^5.1.1:
   resolved "https://registry.yarnpkg.com/quick-lru/-/quick-lru-5.1.1.tgz#366493e6b3e42a3a6885e2e99d18f80fb7a8c932"
   integrity sha512-WuyALRjWPDGtt/wzJiadO5AXY+8hZ80hVpe6MyivgraREW751X3SbhRvG3eLKOYN+8VEvqLcf3wdnt44Z4S4SA==
 
+random@^3.0.6:
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/random/-/random-3.0.6.tgz#c918e9498dee461affde72986c79ac4d9ef486cf"
+  integrity sha512-B53pp/8eFBxULg6sfQgjjmy3vZ2CWVt0Nk4OgkSpvmAf3VXfcEUgGASbNWbXiTiExWe8hCIf5HlddNHzrte9jg==
+  dependencies:
+    seedrandom "^3.0.5"
+
 react-dom@17.0.2:
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-17.0.2.tgz#ecffb6845e3ad8dbfcdc498f0d0a939736502c23"
@@ -3651,6 +3658,11 @@ scheduler@^0.20.2:
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
+
+seedrandom@^3.0.5:
+  version "3.0.5"
+  resolved "https://registry.yarnpkg.com/seedrandom/-/seedrandom-3.0.5.tgz#54edc85c95222525b0c7a6f6b3543d8e0b3aa0a7"
+  integrity sha512-8OwmbklUNzwezjGInmZ+2clQmExQPvomqjL7LFqOYqtmuxRgQYqOD3mHaU+MvZn5FLUeVxVfQjwLZW/n/JFuqg==
 
 semver@^6.0.0, semver@^6.3.0:
   version "6.3.0"

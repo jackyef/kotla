@@ -3,6 +3,11 @@ import { createContext, FC, useEffect, useState } from 'react'
 import { AllTimeStats, DEFAULT_ALL_TIME_STATS, GameState } from './constants'
 import { useAllTimeStats } from './hooks/useAllTimeStats'
 import { useGameState } from './hooks/useGameState'
+import {
+  getTodayDateString,
+  restoreNumberOfTheDay,
+  storeNumberOfTheDay
+} from './storage'
 
 type KotlaContextValue = {
   cityOfTheDay: City
@@ -113,11 +118,33 @@ export const KotlaProvider: FC = ({ children }) => {
 
   useEffect(() => {
     if (!cityOfTheDay) {
-      // TODO: Load city of the day from API
-      setTimeout(() => {
-        setCityOfTheDay(cities.find((c) => c.name === 'Pekanbaru') as City)
-        setIsLoading(false)
-      }, 2000)
+      const today = new Date()
+      const ds = getTodayDateString()
+
+      ;(async () => {
+        const { number, dateString } = await restoreNumberOfTheDay()
+
+        if (number === -1 || dateString !== ds) {
+          // Need to refetch from the server
+          const res = await fetch(`/api/getNumberOfTheDay?ds=${ds}`)
+          const json = await res.json()
+          const { numberOfTheDay } = json
+          const cityIndexOfTheDay = numberOfTheDay % cities.length
+
+          setCityOfTheDay(cities[cityIndexOfTheDay])
+          setIsLoading(false)
+
+          storeNumberOfTheDay({
+            number: numberOfTheDay,
+            dateString: ds
+          })
+        } else {
+          const cityIndexOfTheDay = number % cities.length
+
+          setCityOfTheDay(cities[cityIndexOfTheDay])
+          setIsLoading(false)
+        }
+      })()
     }
   }, [cityOfTheDay])
 

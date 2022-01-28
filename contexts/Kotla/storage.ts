@@ -49,3 +49,35 @@ export const restoreAllTimeStats = async (): Promise<AllTimeStats> => {
     return DEFAULT_ALL_TIME_STATS
   }
 }
+
+const NOTD_KEY = `notd`
+
+type NumberOfTheDay = {
+  number: number
+  dateString: string
+}
+
+export const storeNumberOfTheDay = (notd: NumberOfTheDay) => {
+  localForage.setItem(NOTD_KEY, notd)
+}
+
+export const restoreNumberOfTheDay = async () => {
+  try {
+    const restoredNOTD = await localForage.getItem(NOTD_KEY)
+
+    if (!restoredNOTD) throw new Error()
+
+    return restoredNOTD as NumberOfTheDay
+  } catch {
+    return {
+      number: -1,
+      dateString: ''
+    }
+  }
+}
+
+export const getTodayDateString = () => {
+  const today = new Date()
+
+  return `${today.getFullYear()}${today.getMonth()}${today.getDate()}`
+}

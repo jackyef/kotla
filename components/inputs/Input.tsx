@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { FC, forwardRef, InputHTMLAttributes } from 'react'
+import { forwardRef, InputHTMLAttributes } from 'react'
 import { useFocusableClass } from './hooks'
 
 type Props = InputHTMLAttributes<HTMLInputElement>
@@ -23,3 +23,5 @@ export const Input = forwardRef<HTMLInputElement, Props>(
     )
   }
 )
+
+Input.displayName = 'Input'

@@ -1,6 +1,7 @@
 import { Button } from '@/components/inputs/Button'
 import { KotlaContext } from '@/contexts/Kotla'
 import { getBearing, getBearingDirection, getDistance } from '@/lib/geo/calc'
+import { toast } from '@/lib/toast'
 import { City } from '@/utils/dataSources/cities'
 import clsx from 'clsx'
 import { useContext, useEffect, useState } from 'react'
@@ -112,51 +113,25 @@ export const ShareButtons = () => {
   const { guesses, cityOfTheDay } = useContext(KotlaContext)
 
   const generateText = () => {
-    return template
+    let output = template
       .replace(':kotlaSeries:', getKotlaSeriesNumber())
       .replace(':guessCount:', String(guesses.length))
-      .replace(
-        ':guess0:',
-        `${getLetterBoxes(guesses[0], cityOfTheDay)} ${getGuessSymbol(
-          guesses[0],
-          cityOfTheDay
-        )}`
+
+    for (let i = 0; i < 6; i += 1) {
+      const guess = guesses[i]
+
+      output = output.replace(
+        `:guess${i}:\n`,
+        guess
+          ? `${getLetterBoxes(guess, cityOfTheDay)} ${getGuessSymbol(
+              guess,
+              cityOfTheDay
+            )}\n`
+          : ''
       )
-      .replace(
-        ':guess1:',
-        `${getLetterBoxes(guesses[1], cityOfTheDay)} ${getGuessSymbol(
-          guesses[1],
-          cityOfTheDay
-        )}`
-      )
-      .replace(
-        ':guess2:',
-        `${getLetterBoxes(guesses[2], cityOfTheDay)} ${getGuessSymbol(
-          guesses[2],
-          cityOfTheDay
-        )}`
-      )
-      .replace(
-        ':guess3:',
-        `${getLetterBoxes(guesses[3], cityOfTheDay)} ${getGuessSymbol(
-          guesses[3],
-          cityOfTheDay
-        )}`
-      )
-      .replace(
-        ':guess4:',
-        `${getLetterBoxes(guesses[4], cityOfTheDay)} ${getGuessSymbol(
-          guesses[4],
-          cityOfTheDay
-        )}`
-      )
-      .replace(
-        ':guess5:',
-        `${getLetterBoxes(guesses[5], cityOfTheDay)} ${getGuessSymbol(
-          guesses[5],
-          cityOfTheDay
-        )}`
-      )
+    }
+
+    return output
   }
 
   const handleShare = () => {
@@ -167,6 +142,8 @@ export const ShareButtons = () => {
       })
     } else {
       navigator.clipboard.writeText(text)
+
+      toast.info('Disalin ke clipboard')
     }
   }
 

@@ -2,7 +2,7 @@ import { KotlaContext } from '@/contexts/Kotla'
 import { getBearing, getDistance } from '@/lib/geo/calc'
 import { City } from '@/utils/dataSources/cities'
 import clsx from 'clsx'
-import { FC, useContext, useMemo } from 'react'
+import { FC, useMemo } from 'react'
 import { Highlight, Letter } from './Highlight'
 
 const Container: FC = ({ children }) => {
@@ -13,6 +13,7 @@ const Container: FC = ({ children }) => {
 
 type RowProps = {
   city: City
+  cityOfTheDay: City
 }
 
 // Distance between Sabang and Merauke
@@ -48,9 +49,7 @@ const getBearingDirection = (bearingDegree: number) => {
   }
 }
 
-const Row: FC<RowProps> = ({ city }) => {
-  const { cityOfTheDay } = useContext(KotlaContext)
-
+const Row: FC<RowProps> = ({ city, cityOfTheDay }) => {
   const distance = useMemo(
     () => getDistance(city, cityOfTheDay),
     [city, cityOfTheDay]

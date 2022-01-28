@@ -38,21 +38,7 @@ export const GuessForm = ({ onSubmit, disabled }: Props) => {
         placeholder="Tebak di sini"
         // list="cities"
       />
-      <Button
-        className={clsx(
-          'bg-teal-600',
-          'text-white',
-          'focus:shadow-teal-600',
-          'focus:shadow-lg',
-          'hover:shadow-teal-600',
-          'hover:shadow-lg',
-          'disabled:shadow-none',
-          'disabled:cursor-not-allowed',
-          'disabled:bg-slate-400'
-        )}
-        disabled={disabled}
-        type="submit"
-      >
+      <Button disabled={disabled} type="submit">
         Tebak
       </Button>
     </form>

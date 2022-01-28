@@ -5,7 +5,8 @@ import { useContext } from 'react'
 import { KotlaContext, MAX_GUESS_COUNT } from '@/contexts/Kotla'
 
 const Home: NextPage = () => {
-  const { guesses, guess, gameState, isLoading } = useContext(KotlaContext)
+  const { guesses, guess, gameState, isLoading, cityOfTheDay } =
+    useContext(KotlaContext)
 
   const handleSubmit = (cityName: string) => {
     guess(cityName)
@@ -18,7 +19,11 @@ const Home: NextPage = () => {
     <>
       <Guesses.Container>
         {guesses.map((guessedCity) => (
-          <Guesses.Row key={guessedCity.name} city={guessedCity} />
+          <Guesses.Row
+            key={guessedCity.name}
+            city={guessedCity}
+            cityOfTheDay={cityOfTheDay}
+          />
         ))}
         {spacerArray.map((_, i) => (
           <Guesses.RowSpacer key={i} />

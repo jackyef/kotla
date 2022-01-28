@@ -13,18 +13,21 @@ const Home: NextPage = () => {
   }
 
   const isGameOver = gameState !== 'in_progress'
-  const spacerArray = new Array(MAX_GUESS_COUNT - guesses.length).fill(null)
+  const spacerArray = !isLoading
+    ? new Array(MAX_GUESS_COUNT - guesses.length).fill(null)
+    : new Array(MAX_GUESS_COUNT).fill(null)
 
   return (
     <>
       <Guesses.Container>
-        {guesses.map((guessedCity) => (
-          <Guesses.Row
-            key={guessedCity.name}
-            city={guessedCity}
-            cityOfTheDay={cityOfTheDay}
-          />
-        ))}
+        {!isLoading &&
+          guesses.map((guessedCity) => (
+            <Guesses.Row
+              key={guessedCity.name}
+              city={guessedCity}
+              cityOfTheDay={cityOfTheDay}
+            />
+          ))}
         {spacerArray.map((_, i) => (
           <Guesses.RowSpacer key={i} />
         ))}

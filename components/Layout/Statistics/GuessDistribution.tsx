@@ -1,15 +1,12 @@
+import { KotlaContext } from '@/contexts/Kotla'
 import clsx from 'clsx'
+import { useContext } from 'react'
 
 export const GuessDistribution = () => {
-  const guessesDistribution = [
-    [1, 0],
-    [2, 1],
-    [3, 2],
-    [4, 6],
-    [5, 9],
-    [6, 4]
-  ]
-  const highestCount = guessesDistribution.reduce(
+  const { allTimeStats } = useContext(KotlaContext)
+  const { guessDistribution } = allTimeStats
+
+  const highestCount = guessDistribution.reduce(
     (acc, [_, count]) => (acc > count ? acc : count),
     0
   )
@@ -19,7 +16,7 @@ export const GuessDistribution = () => {
       <h3 className={clsx('mt-4', 'mb-2')}>Distribusi tebakan</h3>
 
       <div>
-        {guessesDistribution.map(([guess, count]) => {
+        {guessDistribution.map(([guess, count]) => {
           return (
             <div key={guess} className={clsx('mb-1', 'flex', 'items-center')}>
               <span

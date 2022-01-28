@@ -46,8 +46,6 @@ type ItemProps = {
 }
 
 const Item = ({ onClick, value, query }: ItemProps) => {
-  console.log({ value, query })
-
   return (
     <button
       role="listitem"

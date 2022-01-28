@@ -1,9 +1,10 @@
+import { KotlaContext } from '@/contexts/Kotla'
 import clsx from 'clsx'
-import { FC } from 'react'
+import { FC, useContext } from 'react'
 
 type StatsProps = {
   label: string | JSX.Element
-  value: string
+  value: string | number
 }
 
 const StatsItem: FC<StatsProps> = ({ label, value }) => {
@@ -16,6 +17,9 @@ const StatsItem: FC<StatsProps> = ({ label, value }) => {
 }
 
 export const Stats = () => {
+  const { allTimeStats } = useContext(KotlaContext)
+  const { playCount, winCount, currentStreak, longestStreak } = allTimeStats
+
   return (
     <dl
       className={clsx(
@@ -26,10 +30,13 @@ export const Stats = () => {
         'justify-center'
       )}
     >
-      <StatsItem value="0" label="Dimainkan" />
-      <StatsItem value="0" label="Kemenangan" />
+      <StatsItem value={playCount} label="Dimainkan" />
       <StatsItem
-        value="0"
+        value={`${Math.round((winCount * 100) / playCount) || 0}%`}
+        label="Kemenangan"
+      />
+      <StatsItem
+        value={currentStreak}
         label={
           <>
             <i>Streak</i> saat ini
@@ -37,7 +44,7 @@ export const Stats = () => {
         }
       />
       <StatsItem
-        value="0"
+        value={longestStreak}
         label={
           <>
             <i>Streak</i> tertinggi

@@ -1,5 +1,8 @@
 import { cities, City } from '@/utils/dataSources/cities'
 import { createContext, FC, useEffect, useState } from 'react'
+import { AllTimeStats, DEFAULT_ALL_TIME_STATS, GameState } from './constants'
+import { useAllTimeStats } from './hooks/useAllTimeStats'
+import { useGameState } from './hooks/useGameState'
 
 type KotlaContextValue = {
   cityOfTheDay: City
@@ -7,11 +10,7 @@ type KotlaContextValue = {
   guesses: City[]
   guess: (cityName: string) => void
   gameState: GameState['state']
-}
-
-type GameState = {
-  guesses: City[]
-  state: 'in_progress' | 'won' | 'lost'
+  allTimeStats: AllTimeStats
 }
 
 export const KotlaContext = createContext<KotlaContextValue>({
@@ -19,7 +18,8 @@ export const KotlaContext = createContext<KotlaContextValue>({
   isLoading: true,
   guesses: [],
   guess: () => {},
-  gameState: 'in_progress'
+  gameState: 'in_progress',
+  allTimeStats: DEFAULT_ALL_TIME_STATS
 })
 
 export const MAX_GUESS_COUNT = 6
@@ -29,10 +29,9 @@ export const KotlaProvider: FC = ({ children }) => {
   const [cityOfTheDay, setCityOfTheDay] = useState<City>(
     null as unknown as City
   )
-  const [gameState, setGameState] = useState<GameState>({
-    guesses: [],
-    state: 'in_progress'
-  }) // Should be synced to local storage
+  const [[gameState, setGameState], isGameStateInitialized] = useGameState()
+  const [[allTimeStats, setAllTimeStats], isAllTimeStatsInitialized] =
+    useAllTimeStats()
 
   const guess = (cityName: string) => {
     if (!cityOfTheDay || !cityName) return
@@ -61,6 +60,24 @@ export const KotlaProvider: FC = ({ children }) => {
 
     if (city.name === cityOfTheDay.name) {
       setGameState((prev) => {
+        const guessCount = prev.guesses.length + 1
+        setAllTimeStats((prev) => {
+          const isLongestStreak = prev.currentStreak === prev.longestStreak
+
+          return {
+            ...prev,
+            guessDistribution: prev.guessDistribution.map(([guess, count]) =>
+              guessCount === guess ? [guess, count + 1] : [guess, count]
+            ) as AllTimeStats['guessDistribution'],
+            playCount: prev.playCount + 1,
+            winCount: prev.winCount + 1,
+            longestStreak: isLongestStreak
+              ? prev.longestStreak + 1
+              : prev.longestStreak,
+            currentStreak: prev.currentStreak + 1
+          }
+        })
+
         return {
           ...prev,
           guesses: [...prev.guesses, city],
@@ -73,6 +90,14 @@ export const KotlaProvider: FC = ({ children }) => {
           ...prev,
           guesses: [...prev.guesses, city],
           state: 'lost'
+        }
+      })
+
+      setAllTimeStats((prev) => {
+        return {
+          ...prev,
+          playCount: prev.playCount + 1,
+          currentStreak: 0
         }
       })
     } else {
@@ -94,7 +119,7 @@ export const KotlaProvider: FC = ({ children }) => {
         setIsLoading(false)
       }, 2000)
     }
-  }, [])
+  }, [cityOfTheDay])
 
   if (!cityOfTheDay && !isLoading) {
     // TODO: Make this prettier
@@ -105,10 +130,12 @@ export const KotlaProvider: FC = ({ children }) => {
     <KotlaContext.Provider
       value={{
         cityOfTheDay,
-        isLoading,
+        isLoading:
+          isLoading || !isGameStateInitialized || !isAllTimeStatsInitialized,
         guesses: gameState.guesses,
         guess,
-        gameState: gameState.state
+        gameState: gameState.state,
+        allTimeStats
       }}
     >
       {children}

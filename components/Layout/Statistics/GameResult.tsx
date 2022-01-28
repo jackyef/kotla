@@ -2,6 +2,7 @@ import { KotlaContext } from '@/contexts/Kotla'
 import clsx from 'clsx'
 import { useContext } from 'react'
 import { ExternalLink } from 'react-feather'
+import { ShareButtons } from './ShareButtons'
 
 const googleMapsUrlTemplate = `https://www.google.com/maps/search/:lat,:lng`
 
@@ -59,6 +60,7 @@ export const GameResult = () => {
           </span>
         </a>
       </div>
+      <ShareButtons />
     </>
   )
 }

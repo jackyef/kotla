@@ -33,7 +33,8 @@ export const GuessDistribution = () => {
                   'tabular-nums',
                   'text-teal-900',
                   'min-w-min',
-                  'text-right'
+                  'text-right',
+                  'rounded-r-lg'
                 )}
                 style={{
                   width: `${Math.floor((count / highestCount) * 100)}%`

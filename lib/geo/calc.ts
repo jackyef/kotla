@@ -50,3 +50,46 @@ export const getDistance = (pointA: Point, pointB: Point) => {
 
   return d
 }
+
+// Distance between Sabang and Merauke
+export const MAX_DISTANCE_KM = 5245
+
+export const getBearingDirection = (bearingDegree: number) => {
+  const directions = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'] as const
+  const emoji = {
+    N: '⬆️',
+    NE: '↗️',
+    E: '➡️',
+    SE: '↘️',
+    S: '⬇️',
+    SW: '↙️',
+    W: '⬅️',
+    NW: '↖️'
+  } as const
+  const label = {
+    N: 'Utara',
+    NE: 'Timur Laut',
+    E: 'Timur',
+    SE: 'Tenggara',
+    S: 'Selatan',
+    SW: 'Barat Daya',
+    W: 'Barat',
+    NW: 'Barat Laut'
+  } as const
+
+  const index = [
+    bearingDegree > 337.5 || bearingDegree < 22.5,
+    bearingDegree > 22.5 && bearingDegree < 67.5,
+    bearingDegree > 67.5 && bearingDegree < 112.5,
+    bearingDegree > 112.5 && bearingDegree < 157.5,
+    bearingDegree > 157.5 && bearingDegree < 202.5,
+    bearingDegree > 202.5 && bearingDegree < 247.5,
+    bearingDegree > 247.5 && bearingDegree < 292.5,
+    bearingDegree > 292.5 && bearingDegree < 337.5
+  ].findIndex(Boolean)
+
+  return {
+    emoji: emoji[directions[index]],
+    label: label[directions[index]]
+  }
+}

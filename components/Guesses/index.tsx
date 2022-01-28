@@ -1,4 +1,9 @@
-import { getBearing, getDistance } from '@/lib/geo/calc'
+import {
+  getBearing,
+  getBearingDirection,
+  getDistance,
+  MAX_DISTANCE_KM
+} from '@/lib/geo/calc'
 import { City } from '@/utils/dataSources/cities'
 import clsx from 'clsx'
 import { FC, useMemo } from 'react'
@@ -13,49 +18,6 @@ const Container: FC = ({ children }) => {
 type RowProps = {
   city: City
   cityOfTheDay: City
-}
-
-// Distance between Sabang and Merauke
-const MAX_DISTANCE_KM = 5245
-
-const getBearingDirection = (bearingDegree: number) => {
-  const directions = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'] as const
-  const emoji = {
-    N: '⬆️',
-    NE: '↗️',
-    E: '➡️',
-    SE: '↘️',
-    S: '⬇️',
-    SW: '↙️',
-    W: '⬅️',
-    NW: '↖️'
-  } as const
-  const label = {
-    N: 'Utara',
-    NE: 'Timur Laut',
-    E: 'Timur',
-    SE: 'Tenggara',
-    S: 'Selatan',
-    SW: 'Barat Daya',
-    W: 'Barat',
-    NW: 'Barat Laut'
-  } as const
-
-  const index = [
-    bearingDegree > 337.5 || bearingDegree < 22.5,
-    bearingDegree > 22.5 && bearingDegree < 67.5,
-    bearingDegree > 67.5 && bearingDegree < 112.5,
-    bearingDegree > 112.5 && bearingDegree < 157.5,
-    bearingDegree > 157.5 && bearingDegree < 202.5,
-    bearingDegree > 202.5 && bearingDegree < 247.5,
-    bearingDegree > 247.5 && bearingDegree < 292.5,
-    bearingDegree > 292.5 && bearingDegree < 337.5
-  ].findIndex(Boolean)
-
-  return {
-    emoji: emoji[directions[index]],
-    label: label[directions[index]]
-  }
 }
 
 const Row: FC<RowProps> = ({ city, cityOfTheDay }) => {
@@ -84,11 +46,11 @@ const Row: FC<RowProps> = ({ city, cityOfTheDay }) => {
     )
 
   const getBgClass = () => {
-    if (percentage < 33.33) {
+    if (percentage < 66.66) {
       return 'bg-red-50'
     }
 
-    if (percentage < 66.66) {
+    if (percentage < 80) {
       return 'bg-yellow-50'
     }
 

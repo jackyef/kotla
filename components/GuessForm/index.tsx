@@ -1,6 +1,6 @@
 import { cities } from '@/utils/dataSources/cities'
 import clsx from 'clsx'
-import { FormEvent, useRef } from 'react'
+import { FormEvent, useRef, useState } from 'react'
 import { Button } from '../inputs/Button'
 import { Input } from '../inputs/Input'
 
@@ -11,6 +11,7 @@ type Props = {
 
 export const GuessForm = ({ onSubmit, disabled }: Props) => {
   const inputRef = useRef<HTMLInputElement>(null)
+  const [shouldShowOptionsList, setShouldShowOptionsList] = useState(false)
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
@@ -45,7 +46,13 @@ export const GuessForm = ({ onSubmit, disabled }: Props) => {
         ref={inputRef}
         className={clsx('flex-1')}
         placeholder="Tebak di sini"
-        list="cities"
+        list={shouldShowOptionsList ? 'cities' : undefined}
+        onChange={(e) => {
+          setShouldShowOptionsList(Boolean(e.currentTarget.value))
+        }}
+        onBlur={(e) => {
+          setShouldShowOptionsList(false)
+        }}
       />
       <Button disabled={disabled} type="submit">
         Tebak

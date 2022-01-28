@@ -36,16 +36,16 @@ export const GuessForm = ({ onSubmit, disabled }: Props) => {
       )}
       onSubmit={handleSubmit}
     >
-      {/* <datalist id="cities">
+      <datalist id="cities">
         {cities.map((city) => (
           <option key={city.name} value={city.name} label={city.name} />
         ))}
-      </datalist> */}
+      </datalist>
       <Input
         ref={inputRef}
         className={clsx('flex-1')}
         placeholder="Tebak di sini"
-        // list="cities"
+        list="cities"
       />
       <Button disabled={disabled} type="submit">
         Tebak

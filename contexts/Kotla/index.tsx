@@ -9,12 +9,14 @@ import {
   restoreNumberOfTheDay,
   storeNumberOfTheDay
 } from './storage'
+import clsx from 'clsx'
 
 export type ModalState = 'help' | 'stats' | null
 
 type KotlaContextValue = {
   cityOfTheDay: City
   isLoading: boolean
+  hasError: boolean
   guesses: City[]
   guess: (cityName: string) => void
   gameState: GameState['state']
@@ -27,6 +29,7 @@ type KotlaContextValue = {
 export const KotlaContext = createContext<KotlaContextValue>({
   cityOfTheDay: null as unknown as City,
   isLoading: true,
+  hasError: false,
   guesses: [],
   guess: () => {},
   gameState: 'in_progress',
@@ -172,15 +175,11 @@ export const KotlaProvider: FC = ({ children }) => {
     }
   }, [cityOfTheDay])
 
-  if (!cityOfTheDay && !isLoading) {
-    // TODO: Make this prettier
-    return <div>Error. Tolong muat ulang halaman.</div>
-  }
-
   return (
     <KotlaContext.Provider
       value={{
         cityOfTheDay,
+        hasError: !cityOfTheDay && !isLoading,
         isLoading:
           isLoading || !isGameStateInitialized || !isAllTimeStatsInitialized,
         guesses: gameState.guesses,

@@ -22,16 +22,17 @@ export const GameResult = () => {
       </p>
 
       <div
-        className={clsx('border-teal-200', 'border-solid', 'border-2', 'px-2')}
+        className={clsx(
+          'border-teal-200',
+          'border-solid',
+          'border-[1px]',
+          'rounded-lg',
+          'py-2',
+          'px-4',
+          'mt-4'
+        )}
       >
-        <p
-          className={clsx(
-            'text-teal-600',
-            'font-semibold',
-            'text-base',
-            'mt-4'
-          )}
-        >
+        <p className={clsx('text-teal-600', 'font-semibold', 'text-base')}>
           {cityOfTheDay.name}
         </p>
         <p className={clsx('pl-2', 'text-gray-500', 'text-sm')}>

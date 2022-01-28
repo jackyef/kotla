@@ -31,8 +31,12 @@ const Container: FC = ({ children }) => {
         'shadow-slate-200',
         'bg-white',
         'w-full',
-        'bottom-14'
+        'bottom-14',
+        'overflow-y-auto'
       )}
+      style={{
+        maxHeight: '56vh'
+      }}
     >
       {children}
     </div>

@@ -15,7 +15,7 @@ export const filterCities = (query: string): City[] => {
 
   return cities
     .filter((c) => words.every((word) => c.name.toLowerCase().includes(word)))
-    .slice(0, 5)
+    .slice(0, 20)
 }
 
 export const GuessForm = ({ onSubmit, disabled }: Props) => {

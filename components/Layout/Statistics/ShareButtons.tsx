@@ -22,9 +22,13 @@ const getKotlaSeriesNumber = () => {
 const getLetterBoxes = (guess: City, answer: City) => {
   const foundLetters: Record<string, boolean> = {}
 
-  return guess.name
+  let output = guess.name
     .split('')
     .map((letter, index) => {
+      if (index > answer.name.length - 1) {
+        return
+      }
+
       if (answer.name.includes(letter)) {
         foundLetters[letter] = true
       }
@@ -40,6 +44,19 @@ const getLetterBoxes = (guess: City, answer: City) => {
       }
     })
     .join('')
+
+  if (answer.name.length - guess.name.length > 0) {
+    const remainingLetters = new Array(
+      answer.name.length - guess.name.length
+    ).fill(null)
+
+    remainingLetters.forEach(() => {
+      // pad with '⬛'
+      output += '⬛'
+    })
+  }
+
+  return output
 }
 
 const getGuessSymbol = (guess: City, answer: City) => {

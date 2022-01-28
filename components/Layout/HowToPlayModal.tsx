@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import { Guesses } from '../Guesses'
 import { Button } from '../inputs/Button'
 import { Modal } from '../Modal'
@@ -39,27 +39,35 @@ const GuessExplainerParagraph: FC = ({ children }) => {
   return <p className={clsx('text-xs', 'text-gray-500', 'px-2')}>{children}</p>
 }
 
+const Paragraph: FC = ({ children }) => {
+  return <p className="text-sm text-gray-500 mb-2">{children}</p>
+}
+
 export const HowToPlayModal = ({ onClose, isOpen }: Props) => {
+  useEffect(() => {
+    requestAnimationFrame(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      })
+    })
+  }, [])
+
   return (
     <Modal onClose={onClose} isOpen={isOpen} title="Cara bermain">
-      <p className="text-sm text-gray-500 mb-2">
-        Tebak <strong className="uppercase">Kotla</strong> dalam 6 kesempatan. 1
-        hari ada 1 kota rahasia.
-      </p>
-
-      <p className="text-sm text-gray-500 mb-2">
+      <Paragraph>
+        Tebak <strong className="uppercase">Kotla</strong> dalam 6 kesempatan.
+      </Paragraph>
+      <Paragraph>
         Setiap tebakan harus merupakan nama kota yang berada dalam daftar Kotla.
         Tidak semua kota di Indonesia termasuk dalam daftar Kotla.
-      </p>
-
-      <p className="text-sm text-gray-500 mb-2">
+      </Paragraph>
+      <Paragraph>
         Setelah jawaban dikirimkan, warna huruf akan berubah untuk menunjukkan
         seberapa dekat tebakanmu dari kota rahasia. Jarak dan arah dari kota
         rahasia juga akan ditampilkan.
-      </p>
-
+      </Paragraph>
       <hr />
-
       <h3 className={clsx('font-medium', 'text-base', 'my-2')}>Contoh</h3>
       <Guesses.Container>
         <Guesses.Row city={mockCities[0]} cityOfTheDay={mockCities[2]} />
@@ -90,13 +98,15 @@ export const HowToPlayModal = ({ onClose, isOpen }: Props) => {
         </GuessExplainerParagraph>
       </Guesses.Container>
 
+      <hr className="mb-2" />
+
+      <Paragraph>
+        Akan ada <strong className="uppercase">Kotla</strong> baru setiap hari!
+      </Paragraph>
       <div className="mt-4 flex justify-end">
         <Button
           type="button"
-          className={clsx(
-            'inline-flex',
-            'justify-center',
-          )}
+          className={clsx('inline-flex', 'justify-center')}
           onClick={onClose}
         >
           Oke!

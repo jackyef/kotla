@@ -1,8 +1,7 @@
 import clsx from 'clsx'
 import { FC, useState } from 'react'
 import { HelpCircle, BarChart2 } from 'react-feather'
-import { Modal } from '../Modal'
-import { HeaderButton } from './HeaderButton'
+import { IconButton } from '../inputs/IconButton'
 import { HowToPlayModal } from './HowToPlayModal'
 
 type ModalState = 'help' | 'stats' | null
@@ -16,14 +15,14 @@ export const Header = () => {
 
   return (
     <header className={clsx('flex', 'justify-between', 'mb-12')}>
-      <HeaderButton
+      <IconButton
         aria-label="Bantuan"
         onClick={() => {
           setModalState('help')
         }}
       >
         <HelpCircle />
-      </HeaderButton>
+      </IconButton>
       <h1
         className={clsx(
           'text-center',
@@ -36,9 +35,9 @@ export const Header = () => {
       >
         Kotla{' '}
       </h1>
-      <HeaderButton aria-label="Statistik">
+      <IconButton aria-label="Statistik">
         <BarChart2 />
-      </HeaderButton>
+      </IconButton>
 
       <HowToPlayModal isOpen={modalState === 'help'} onClose={closeModal} />
     </header>

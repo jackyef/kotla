@@ -1,13 +1,15 @@
 import clsx from 'clsx'
 import { ButtonHTMLAttributes, FC } from 'react'
+import { useFocusableClass } from './hooks'
 
-export const HeaderButton: FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
+export const IconButton: FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
   className,
   ...props
 }) => {
+  const focusableClass = useFocusableClass()
+
   return (
     <button
-      aria-label="Bantuan"
       className={clsx(
         'justify-start',
         'text-sm',
@@ -16,6 +18,7 @@ export const HeaderButton: FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
         'underline-offset-1',
         'decoration-dotted',
         'text-slate-500',
+        focusableClass,
         className
       )}
       {...props}

@@ -1,4 +1,3 @@
-import { KotlaContext } from '@/contexts/Kotla'
 import { getBearing, getDistance } from '@/lib/geo/calc'
 import { City } from '@/utils/dataSources/cities'
 import clsx from 'clsx'
@@ -71,7 +70,7 @@ const Row: FC<RowProps> = ({ city, cityOfTheDay }) => {
               emoji: '📍',
               label: 'Tepat di lokasi kota jawaban'
             },
-      [city, cityOfTheDay]
+      [city, cityOfTheDay, isCorrectAnswer]
     )
 
   const getBgClass = () => {

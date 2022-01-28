@@ -1,6 +1,8 @@
 import { Dialog, Transition } from '@headlessui/react'
 import clsx from 'clsx'
 import { FC, Fragment } from 'react'
+import { X } from 'react-feather'
+import { IconButton } from '../inputs/IconButton'
 
 type Props = {
   isOpen?: boolean
@@ -54,12 +56,24 @@ export const Modal: FC<Props> = ({ isOpen, onClose, children, title }) => {
               leaveTo="opacity-0 scale-95"
             >
               <div className="inline-block w-full max-w-xl p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-lg">
-                <Dialog.Title
-                  as="h3"
-                  className="text-xl mb-4 font-medium leading-6 text-gray-900"
+                <div
+                  className={clsx(
+                    'flex',
+                    'justify-between',
+                    'items-center',
+                    'mb-4'
+                  )}
                 >
-                  {title}
-                </Dialog.Title>
+                  <Dialog.Title
+                    as="h3"
+                    className="text-xl font-medium leading-6 text-gray-900"
+                  >
+                    {title}
+                  </Dialog.Title>
+                  <IconButton aria-label="Tutup dialog" onClick={onClose}>
+                    <X />
+                  </IconButton>
+                </div>
                 {children}
               </div>
             </Transition.Child>

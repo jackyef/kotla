@@ -45,26 +45,39 @@ export const Highlight = ({ city, cityOfTheDay }: Props) => {
   const foundLetters: Record<string, boolean> = {}
 
   return (
-    <span 
+    <span
       aria-label={city.name}
-      className={clsx('flex', 'gap-1', 'items-center')}>
+      className={clsx('flex', 'gap-1', 'items-center')}
+    >
       {city.name.split('').map((letter, index) => {
         if (cityOfTheDay.name.includes(letter)) {
           foundLetters[letter] = true
         }
 
         if (isCorrectAnswer) {
-          return <Letter isCorrectAnswer>{letter}</Letter>
+          return (
+            <Letter key={index} isCorrectAnswer>
+              {letter}
+            </Letter>
+          )
         }
 
         if (foundLetters[letter]) {
           if (letter === cityOfTheDay.name[index]) {
-            return <Letter isCorrectIndex>{letter}</Letter>
+            return (
+              <Letter key={index} isCorrectIndex>
+                {letter}
+              </Letter>
+            )
           } else {
-            return <Letter isFoundInAnswer>{letter}</Letter>
+            return (
+              <Letter key={index} isFoundInAnswer>
+                {letter}
+              </Letter>
+            )
           }
         } else {
-          return <Letter>{letter}</Letter>
+          return <Letter key={index}>{letter}</Letter>
         }
       })}
     </span>

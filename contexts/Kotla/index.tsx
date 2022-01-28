@@ -34,16 +34,27 @@ export const KotlaProvider: FC = ({ children }) => {
     state: 'in_progress'
   }) // Should be synced to local storage
 
-  console.log()
-
   const guess = (cityName: string) => {
     if (!cityOfTheDay || !cityName) return
 
-    const city = cities.find((city) => city.name === cityName)
+    const lowercasedCityName = cityName.toLowerCase()
+
+    const city = cities.find(
+      (city) => city.name.toLowerCase() === lowercasedCityName
+    )
 
     if (!city) {
       // TODO: send toast message
       alert('Kota tidak ada dalam daftar Kotla')
+
+      return
+    }
+
+    if (
+      gameState.guesses.find((c) => c.name.toLowerCase() === lowercasedCityName)
+    ) {
+      // TODO: send toast message
+      alert('Kota sudah ditebak sebelumnya')
 
       return
     }

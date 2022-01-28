@@ -8,7 +8,6 @@ const Home: NextPage = () => {
   const { guesses, guess, gameState, isLoading } = useContext(KotlaContext)
 
   const handleSubmit = (cityName: string) => {
-    // TODO: Handle guess here
     guess(cityName)
   }
 
@@ -26,7 +25,9 @@ const Home: NextPage = () => {
         ))}
       </Guesses.Container>
 
-      <GuessForm onSubmit={handleSubmit} disabled={isGameOver || isLoading} />
+      {!isGameOver && (
+        <GuessForm onSubmit={handleSubmit} disabled={isGameOver || isLoading} />
+      )}
     </>
   )
 }

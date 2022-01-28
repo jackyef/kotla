@@ -3,6 +3,7 @@ import { getBearing, getDistance } from '@/lib/geo/calc'
 import { City } from '@/utils/dataSources/cities'
 import clsx from 'clsx'
 import { FC, useContext, useMemo } from 'react'
+import { Highlight, Letter } from './Highlight'
 
 const Container: FC = ({ children }) => {
   return (
@@ -50,7 +51,6 @@ const getBearingDirection = (bearingDegree: number) => {
 const Row: FC<RowProps> = ({ city }) => {
   const { cityOfTheDay } = useContext(KotlaContext)
 
-  const cityName = city.name
   const distance = useMemo(
     () => getDistance(city, cityOfTheDay),
     [city, cityOfTheDay]
@@ -60,14 +60,13 @@ const Row: FC<RowProps> = ({ city }) => {
     () => ((MAX_DISTANCE_KM - distance) * 100) / MAX_DISTANCE_KM,
     [distance]
   )
-  const percentageString = useMemo(
-    () => `${percentage.toFixed(1)}%`,
-    [percentage]
-  )
+
+  const isCorrectAnswer = city.name === cityOfTheDay.name
+
   const { emoji: bearingDirectionEmoji, label: bearingDirectionLabel } =
     useMemo(
       () =>
-        percentage < 100
+        !isCorrectAnswer
           ? getBearingDirection(getBearing(city, cityOfTheDay))
           : {
               emoji: '📍',
@@ -78,15 +77,15 @@ const Row: FC<RowProps> = ({ city }) => {
 
   const getBgClass = () => {
     if (percentage < 33.33) {
-      return 'bg-red-100'
+      return 'bg-red-50'
     }
 
     if (percentage < 66.66) {
-      return 'bg-yellow-100'
+      return 'bg-yellow-50'
     }
 
     if (percentage < 99.99) {
-      return 'bg-green-100'
+      return 'bg-green-50'
     }
 
     return 'bg-gradient-to-r from-teal-500 to-cyan-500 text-white'
@@ -100,29 +99,41 @@ const Row: FC<RowProps> = ({ city }) => {
     <li
       className={clsx(
         getBgClass(),
+        'text-xl',
         'flex',
+        'flex-col',
+        'sm:flex-row',
         'gap-2',
         'rounded-md',
         'py-2',
         'px-4'
       )}
     >
-      <div className={clsx('flex-1')}>{cityName}</div>
-      <div className={clsx('w-32', 'text-right', 'tabular-nums')}>
-        {distanceString}
+      <div
+        className={clsx('flex-1', 'flex', 'items-center', 'overflow-x-auto')}
+      >
+        <Highlight city={city} cityOfTheDay={cityOfTheDay} />
       </div>
       <div
-        className={clsx('w-8')}
-        aria-label={
-          percentage < 100
-            ? `${bearingDirectionLabel} menuju kota jawaban`
-            : bearingDirectionLabel
-        }
+        className={clsx(
+          'flex',
+          'gap-2',
+          'self-end',
+          'sm:self-center',
+          'text-sm'
+        )}
       >
-        {bearingDirectionEmoji}
-      </div>
-      <div className={clsx('w-16', 'text-right', 'tabular-nums')}>
-        {percentageString}
+        <div
+          className={clsx('w-32', 'text-right', 'tabular-nums')}
+          aria-label={
+            !isCorrectAnswer
+              ? `${distanceString} ke arah ${bearingDirectionLabel} menuju kota jawaban`
+              : bearingDirectionLabel
+          }
+        >
+          {distanceString}
+        </div>
+        <div aria-hidden>{bearingDirectionEmoji}</div>
       </div>
     </li>
   )
@@ -132,14 +143,22 @@ export const RowSpacer = () => (
   <li
     className={clsx(
       'bg-transparent',
+      'text-xl',
       'flex',
+      'flex-col',
+      'sm:flex-row',
       'gap-2',
       'rounded-md',
       'py-2',
       'px-4'
     )}
   >
-    &nbsp;
+    <Letter>&nbsp;</Letter>
+    <div
+      className={clsx('flex', 'gap-2', 'self-end', 'sm:self-center', 'text-sm')}
+    >
+      &nbsp;
+    </div>
   </li>
 )
 

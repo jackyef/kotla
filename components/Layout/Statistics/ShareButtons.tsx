@@ -40,6 +40,7 @@ const getLetterBoxes = (guess: City, answer: City) => {
     })
     .join('')
 }
+
 const getGuessSymbol = (guess: City, answer: City) => {
   const distance = getDistance(guess, answer)
 
@@ -84,6 +85,16 @@ const Countdown = () => {
   const remainingSeconds = Math.floor(
     ((tomorrow.getTime() - now.getTime()) / 1000) % 60
   )
+
+  useEffect(() => {
+    if (
+      remainingHours === 0 &&
+      remainingMinutes === 0 &&
+      remainingSeconds === 0
+    ) {
+      window.location.reload()
+    }
+  })
 
   const padWithZero = (num: number) => {
     return num < 10 ? `0${num}` : num

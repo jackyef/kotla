@@ -36,11 +36,21 @@ const getBearingDirection = (bearingDegree: number) => {
     E: 'Timur',
     SE: 'Tenggara',
     S: 'Selatan',
-    SW: 'Barat Data',
+    SW: 'Barat Daya',
     W: 'Barat',
     NW: 'Barat Laut'
   } as const
-  const index = Math.round((bearingDegree + 11.25) / 22.5) % 8
+
+  const index = [
+    bearingDegree > 337.5 || bearingDegree < 22.5,
+    bearingDegree > 22.5 && bearingDegree < 67.5,
+    bearingDegree > 67.5 && bearingDegree < 112.5,
+    bearingDegree > 112.5 && bearingDegree < 157.5,
+    bearingDegree > 157.5 && bearingDegree < 202.5,
+    bearingDegree > 202.5 && bearingDegree < 247.5,
+    bearingDegree > 247.5 && bearingDegree < 292.5,
+    bearingDegree > 292.5 && bearingDegree < 337.5
+  ].findIndex(Boolean)
 
   return {
     emoji: emoji[directions[index]],

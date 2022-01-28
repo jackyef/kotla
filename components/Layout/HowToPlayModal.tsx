@@ -68,7 +68,7 @@ export const HowToPlayModal = ({ onClose, isOpen }: Props) => {
           belum tepat.
         </GuessExplainerParagraph>
         <GuessExplainerParagraph>
-          Kota rahasia berjarak 1040 km ke arah barat dari kota ini.
+          Kota rahasia berjarak 1040 km ke arah barat laut dari kota ini.
         </GuessExplainerParagraph>
         <div className="mb-2" />
 
@@ -78,7 +78,7 @@ export const HowToPlayModal = ({ onClose, isOpen }: Props) => {
           posisi yang tepat.
         </GuessExplainerParagraph>
         <GuessExplainerParagraph>
-          Kota rahasia berjarak 547 km ke arah utara dari kota ini.
+          Kota rahasia berjarak 547 km ke arah selatan dari kota ini.
         </GuessExplainerParagraph>
         <div className="mb-2" />
 

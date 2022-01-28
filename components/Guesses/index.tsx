@@ -141,6 +141,7 @@ const Row: FC<RowProps> = ({ city }) => {
 
 export const RowSpacer = () => (
   <li
+    aria-hidden
     className={clsx(
       'bg-transparent',
       'text-xl',

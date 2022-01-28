@@ -16,6 +16,7 @@ export const Letter: FC<LetterProps> = ({
 }) => {
   return (
     <span
+      aria-hidden
       className={clsx(
         'inline-flex',
         'w-4',
@@ -44,7 +45,9 @@ export const Highlight = ({ city, cityOfTheDay }: Props) => {
   const foundLetters: Record<string, boolean> = {}
 
   return (
-    <span className={clsx('flex', 'gap-1', 'items-center')}>
+    <span 
+      aria-label={city.name}
+      className={clsx('flex', 'gap-1', 'items-center')}>
       {city.name.split('').map((letter, index) => {
         if (cityOfTheDay.name.includes(letter)) {
           foundLetters[letter] = true

@@ -24,7 +24,16 @@ export const GuessForm = ({ onSubmit, disabled }: Props) => {
 
   return (
     <form
-      className={clsx('flex', 'gap-2', 'flex-col', 'md:flex-row')}
+      className={clsx(
+        'py-2',
+        'bg-white',
+        'flex',
+        'gap-2',
+        'flex-col',
+        'md:flex-row',
+        'sticky',
+        'bottom-0'
+      )}
       onSubmit={handleSubmit}
     >
       {/* <datalist id="cities">

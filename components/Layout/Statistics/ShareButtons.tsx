@@ -6,7 +6,7 @@ import clsx from 'clsx'
 import { useContext, useEffect, useState } from 'react'
 import { Share2, Twitter } from 'react-feather'
 
-const FIRST_KOTLA_DATE = new Date('2022-01-28')
+const FIRST_KOTLA_DATE = new Date('2022-01-29')
 
 const getKotlaSeriesNumber = () => {
   const today = new Date()

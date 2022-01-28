@@ -43,7 +43,7 @@ const getLetterBoxes = (guess: City, answer: City) => {
 const getGuessSymbol = (guess: City, answer: City) => {
   const distance = getDistance(guess, answer)
 
-  return `${distance.toFixed(2)}km ${
+  return `${distance.toFixed(2)} km ${
     distance === 0 ? '📍' : getBearingDirection(getBearing(guess, answer)).emoji
   }`
 }

@@ -7,7 +7,7 @@ export const MetaTags = () => {
   const keywords =
     'game, permainan, tebak, kata, kabupaten, kota, rahasia, wordle, indonesia, katla'
   const url = 'https://kotla.vercel.app/'
-  const ogImage = 'https://kotla.vercel.app/og.png'
+  const ogImage = 'https://kotla.vercel.app/og2.png'
 
   /* teal-100 */
   const themeColor = '#CCFBF1'

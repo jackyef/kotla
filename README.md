@@ -1,34 +1,18 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Kotla
 
-## Getting Started
+_Kota_ (city; in Indonesian) guessing game, inspired by [Katla](https://github.com/pveyes/katla), [wordle](https://www.powerlanguage.co.uk/wordle/) and [worldle](https://worldle.teuteuf.fr/).
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## How it works
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+For those who are curious, or are looking for a way to cheat:
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+1. All cities (around 8k+) data are stored in [cities.json](./utils/dataSources/cities.json). ([source](https://simplemaps.com/data/id-cities)). The data will be bundled with the app.
+2. [/api/getNumberOfTheDay](./pages/api/getNumberOfTheDay.ts) generates a number given a `dateString`. The number is then used to select a particular city from the list.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## Thoughts
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+The current cities data aren't exhaustive, but 8k+ is a good enough number to get the game going.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Ideally, we want to only include the top `n` cities with most population. `n` can be any number above 5k. This way, we avoid having too many cities that people might not know about.

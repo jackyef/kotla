@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { FC, useEffect } from 'react'
+import { FC } from 'react'
 import { Guesses } from '../Guesses'
 import { Button } from '../inputs/Button'
 import { Modal } from '../Modal'
@@ -44,15 +44,6 @@ const Paragraph: FC = ({ children }) => {
 }
 
 export const HowToPlayModal = ({ onClose, isOpen }: Props) => {
-  useEffect(() => {
-    requestAnimationFrame(() => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      })
-    })
-  }, [])
-
   return (
     <Modal onClose={onClose} isOpen={isOpen} title="Cara bermain">
       <Paragraph>

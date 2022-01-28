@@ -3,6 +3,7 @@ import { FC, useState } from 'react'
 import { HelpCircle, BarChart2 } from 'react-feather'
 import { IconButton } from '../inputs/IconButton'
 import { HowToPlayModal } from './HowToPlayModal'
+import { StatisticModal } from './StatisticModal'
 
 type ModalState = 'help' | 'stats' | null
 
@@ -35,11 +36,17 @@ export const Header = () => {
       >
         Kotla{' '}
       </h1>
-      <IconButton aria-label="Statistik">
+      <IconButton
+        aria-label="Statistik"
+        onClick={() => {
+          setModalState('stats')
+        }}
+      >
         <BarChart2 />
       </IconButton>
 
       <HowToPlayModal isOpen={modalState === 'help'} onClose={closeModal} />
+      <StatisticModal isOpen={modalState === 'stats'} onClose={closeModal} />
     </header>
   )
 }

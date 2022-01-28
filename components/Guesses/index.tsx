@@ -104,7 +104,8 @@ const Row: FC<RowProps> = ({ city, cityOfTheDay }) => {
         'gap-2',
         'rounded-md',
         'py-2',
-        'px-4'
+        'px-4',
+        'md:py-4'
       )}
     >
       <div
@@ -149,7 +150,8 @@ export const RowSpacer = () => (
       'gap-2',
       'rounded-md',
       'py-2',
-      'px-4'
+      'px-4',
+      'md:py-4'
     )}
   >
     <Letter>&nbsp;</Letter>

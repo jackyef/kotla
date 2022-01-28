@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react'
 import { DEFAULT_GAME_STATE, GameState } from '../constants'
-import { restoreGameState, storeGameState } from '../storage'
+import {
+  getTodayDateString,
+  restoreGameState,
+  storeGameState
+} from '../storage'
 
 export const useGameState = () => {
   const [gameState, setGameState] = useState<GameState>(DEFAULT_GAME_STATE)
@@ -9,8 +13,16 @@ export const useGameState = () => {
   useEffect(() => {
     // Load game state from local storage initially
     ;(async () => {
+      const ds = getTodayDateString()
       const oldGameState = await restoreGameState()
-      setGameState(oldGameState)
+
+      if (oldGameState.dateString !== ds) {
+        // Start a new game
+        setGameState(DEFAULT_GAME_STATE)
+        storeGameState(DEFAULT_GAME_STATE)
+      } else {
+        setGameState(oldGameState)
+      }
       setIsInitialized(true)
     })()
   }, [])

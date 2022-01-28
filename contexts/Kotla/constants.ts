@@ -1,13 +1,16 @@
 import { City } from '@/utils/dataSources/cities'
+import { getTodayDateString } from './storage'
 
 export type GameState = {
   guesses: City[]
   state: 'in_progress' | 'won' | 'lost'
+  dateString: string
 }
 
 export const DEFAULT_GAME_STATE: GameState = {
   guesses: [],
-  state: 'in_progress'
+  state: 'in_progress',
+  dateString: getTodayDateString()
 }
 
 export type AllTimeStats = {

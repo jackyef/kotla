@@ -9,7 +9,7 @@ import {
   restoreNumberOfTheDay,
   storeNumberOfTheDay
 } from './storage'
-import clsx from 'clsx'
+import { toast } from '@/lib/toast'
 
 export type ModalState = 'help' | 'stats' | null
 
@@ -65,8 +65,7 @@ export const KotlaProvider: FC = ({ children }) => {
     )
 
     if (!city) {
-      // TODO: send toast message
-      alert('Kota tidak ada dalam daftar Kotla')
+      toast.error('Kota tidak ada dalam daftar Kotla')
 
       return
     }
@@ -74,8 +73,7 @@ export const KotlaProvider: FC = ({ children }) => {
     if (
       gameState.guesses.find((c) => c.name.toLowerCase() === lowercasedCityName)
     ) {
-      // TODO: send toast message
-      alert('Kota sudah ditebak sebelumnya')
+      toast.error('Kota sudah ditebak sebelumnya')
 
       return
     }
@@ -107,8 +105,22 @@ export const KotlaProvider: FC = ({ children }) => {
         }
       })
 
-      openModal('stats')
-      confetti()
+      if (gameState.guesses.length < 1) {
+        toast.success('Curang kah?')
+      } else if (gameState.guesses.length < 2) {
+        toast.success('Sakti!')
+      } else if (gameState.guesses.length <= 4) {
+        toast.success('Tjakep!')
+      } else if (gameState.guesses.length <= 5) {
+        toast.success('Mantap')
+      } else {
+        toast.success('Nyaris')
+      }
+
+      setTimeout(() => {
+        openModal('stats')
+        confetti()
+      }, 3000)
     } else if (gameState.guesses.length === MAX_GUESS_COUNT - 1) {
       setGameState((prev) => {
         return {
@@ -125,7 +137,14 @@ export const KotlaProvider: FC = ({ children }) => {
           currentStreak: 0
         }
       })
-      openModal('stats')
+
+      toast.error(
+        `Kesempatan habis. Kotla hari ini adalah: ${cityOfTheDay.name}`
+      )
+
+      setTimeout(() => {
+        openModal('stats')
+      }, 3000)
     } else {
       setGameState((prev) => {
         return {

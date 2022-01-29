@@ -7,6 +7,7 @@ import { useGameState } from './hooks/useGameState'
 import { restoreNumberOfTheDay, storeNumberOfTheDay } from './storage'
 import { getTodayDateString } from './helpers'
 import { toast } from '@/lib/toast'
+import { REGENCIES_WITH_SAME_NAME } from '@/utils/dataSources/constants'
 
 export type ModalState = 'help' | 'stats' | null
 
@@ -167,7 +168,11 @@ export const KotlaProvider: FC = ({ children }) => {
       })
 
       toast.error(
-        `Kesempatan habis. Kotla hari ini adalah: ${cityOfTheDay.name}`
+        `Kesempatan habis. Kotla hari ini adalah: ${cityOfTheDay.name} ${
+          REGENCIES_WITH_SAME_NAME[cityOfTheDay.name]
+            ? `(${cityOfTheDay.type})`
+            : ''
+        }`
       )
 
       setTimeout(() => {

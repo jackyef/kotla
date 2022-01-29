@@ -6,7 +6,7 @@ import {
   GameState
 } from './constants'
 
-if (typeof window !== 'undefined') {
+if (typeof window !== 'undefined' && typeof localForage.config === 'function') {
   localForage.config({
     driver: localForage.LOCALSTORAGE,
     name: '__kotla.1', // Changes in type GameState and AllTimeStats should bump this number

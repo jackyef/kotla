@@ -21,9 +21,13 @@ const getKotlaSeriesNumber = () => {
 
 // If we have more than 13 blocks, we risk going higher than 280 character limit of Twitter
 // I am settling on 10 blocks for now to give user some space for their own tweet.
-const MAX_LETTER_PER_ROW = 10
+export const MAX_LETTER_PER_ROW = 10
 
-const getLetterBoxes = (guess: City, answer: City, longestGuess: City) => {
+export const getLetterBoxes = (
+  guess: City,
+  answer: City,
+  longestGuess: City
+) => {
   const foundLetters: Record<string, boolean> = {}
   const isCorrectAnswer =
     guess.name === answer.name && guess.type === answer.type

@@ -4,7 +4,8 @@ import {
   getDistance,
   MAX_DISTANCE_KM
 } from '@/lib/geo/calc'
-import { City, REGENCIES_WITH_SAME_NAME } from '@/utils/dataSources/cities'
+import { City } from '@/utils/dataSources/cities'
+import { REGENCIES_WITH_SAME_NAME } from '@/utils/dataSources/constants'
 import clsx from 'clsx'
 import { FC, useEffect, useMemo, useRef } from 'react'
 import { Highlight, Letter } from './Highlight'
@@ -52,7 +53,7 @@ const Row: FC<RowProps> = ({ city, cityOfTheDay }) => {
      * Scroll this guess into viewport when added
      * otherwise it might not be obvious on smaller viewport
      */
-    containerRef.current?.scrollIntoView({
+    containerRef.current?.scrollIntoView?.({
       behavior: 'smooth',
       block: 'end'
     })

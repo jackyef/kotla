@@ -1,8 +1,5 @@
-import {
-  cities,
-  City,
-  REGENCIES_WITH_SAME_NAME
-} from '@/utils/dataSources/cities'
+import { cities, City } from '@/utils/dataSources/cities'
+import { REGENCIES_WITH_SAME_NAME } from '@/utils/dataSources/constants'
 import { ListBox } from './ListBox'
 import clsx from 'clsx'
 import { FormEvent, useMemo, useRef, useState } from 'react'

@@ -1,9 +1,12 @@
 import * as localForage from 'localforage'
 import {
   AllTimeStats,
+  ALL_TIME_STATS_KEY,
   DEFAULT_ALL_TIME_STATS,
   DEFAULT_GAME_STATE,
-  GameState
+  GameState,
+  GAME_STATE_KEY,
+  NOTD_KEY
 } from './constants'
 
 if (typeof window !== 'undefined' && typeof localForage.config === 'function') {
@@ -13,8 +16,6 @@ if (typeof window !== 'undefined' && typeof localForage.config === 'function') {
     version: 1
   })
 }
-
-const GAME_STATE_KEY = 'gameState'
 
 export const storeGameState = (state: GameState) => {
   localForage.setItem(GAME_STATE_KEY, state)
@@ -32,8 +33,6 @@ export const restoreGameState = async (): Promise<GameState> => {
   }
 }
 
-const ALL_TIME_STATS_KEY = `allTimeStats`
-
 export const storeAllTimeStats = (state: AllTimeStats) => {
   localForage.setItem(ALL_TIME_STATS_KEY, state)
 }
@@ -50,9 +49,7 @@ export const restoreAllTimeStats = async (): Promise<AllTimeStats> => {
   }
 }
 
-const NOTD_KEY = `notd`
-
-type NumberOfTheDay = {
+export type NumberOfTheDay = {
   number: number
   dateString: string
 }
@@ -68,18 +65,12 @@ export const restoreNumberOfTheDay = async () => {
     if (!restoredNOTD) throw new Error()
 
     return restoredNOTD as NumberOfTheDay
-  } catch {
+  } catch (err) {
     return {
       number: -1,
       dateString: ''
     }
   }
-}
-
-export const getTodayDateString = () => {
-  const today = new Date()
-
-  return `${today.getFullYear()}${today.getMonth()}${today.getDate()}`
 }
 
 export const resetStorage = async () => {

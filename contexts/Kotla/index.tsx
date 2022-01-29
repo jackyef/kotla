@@ -4,11 +4,8 @@ import confetti from 'canvas-confetti'
 import { AllTimeStats, DEFAULT_ALL_TIME_STATS, GameState } from './constants'
 import { useAllTimeStats } from './hooks/useAllTimeStats'
 import { useGameState } from './hooks/useGameState'
-import {
-  getTodayDateString,
-  restoreNumberOfTheDay,
-  storeNumberOfTheDay
-} from './storage'
+import { restoreNumberOfTheDay, storeNumberOfTheDay } from './storage'
+import { getTodayDateString } from './helpers'
 import { toast } from '@/lib/toast'
 
 export type ModalState = 'help' | 'stats' | null

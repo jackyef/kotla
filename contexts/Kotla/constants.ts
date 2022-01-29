@@ -1,5 +1,5 @@
 import { City } from '@/utils/dataSources/cities'
-import { getTodayDateString } from './storage'
+import { getTodayDateString } from './helpers'
 
 export type GameState = {
   guesses: City[]
@@ -42,3 +42,7 @@ export const DEFAULT_ALL_TIME_STATS: AllTimeStats = {
   currentStreak: 0,
   longestStreak: 0
 }
+
+export const GAME_STATE_KEY = 'gameState'
+export const ALL_TIME_STATS_KEY = `allTimeStats`
+export const NOTD_KEY = `notd`

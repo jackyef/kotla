@@ -25,7 +25,7 @@ export const Letter: FC<LetterProps> = ({
         'uppercase',
         {
           'text-green-700': isCorrectIndex,
-          'text-yellow-700': isFoundInAnswer,
+          'text-yellow-500': isFoundInAnswer,
           'text-white': isCorrectAnswer
         }
       )}

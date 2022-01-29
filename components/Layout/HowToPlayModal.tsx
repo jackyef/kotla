@@ -50,8 +50,7 @@ export const HowToPlayModal = ({ onClose, isOpen }: Props) => {
         Tebak <strong className="uppercase">Kotla</strong> dalam 6 kesempatan.
       </Paragraph>
       <Paragraph>
-        Setiap tebakan harus merupakan nama kota yang berada dalam daftar Kotla.
-        Tidak semua kota di Indonesia termasuk dalam daftar Kotla.
+        Setiap tebakan harus merupakan nama kota (atau kabupaten) di Indonesia.
       </Paragraph>
       <Paragraph>
         Setelah jawaban dikirimkan, warna huruf akan berubah untuk menunjukkan

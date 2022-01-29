@@ -59,15 +59,15 @@ const Row: FC<RowProps> = ({ city, cityOfTheDay }) => {
 
   const getBgClass = () => {
     if (percentage < 66.66) {
-      return 'bg-red-50'
+      return 'bg-red-50 bg-opacity-60'
     }
 
     if (percentage < 80) {
-      return 'bg-yellow-50'
+      return 'bg-yellow-50 bg-opacity-60'
     }
 
     if (percentage < 99.99) {
-      return 'bg-green-50'
+      return 'bg-green-50 bg-opacity-60'
     }
 
     return 'bg-gradient-to-r from-teal-500 to-cyan-500 text-white'

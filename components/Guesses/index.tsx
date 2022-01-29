@@ -6,7 +6,7 @@ import {
 } from '@/lib/geo/calc'
 import { City } from '@/utils/dataSources/cities'
 import clsx from 'clsx'
-import { FC, useMemo } from 'react'
+import { FC, useEffect, useMemo, useRef } from 'react'
 import { Highlight, Letter } from './Highlight'
 
 const Container: FC = ({ children }) => {
@@ -21,6 +21,7 @@ type RowProps = {
 }
 
 const Row: FC<RowProps> = ({ city, cityOfTheDay }) => {
+  const containerRef = useRef<HTMLLIElement>(null)
   const distance = useMemo(
     () => getDistance(city, cityOfTheDay),
     [city, cityOfTheDay]
@@ -45,6 +46,17 @@ const Row: FC<RowProps> = ({ city, cityOfTheDay }) => {
       [city, cityOfTheDay, isCorrectAnswer]
     )
 
+  useEffect(() => {
+    /**
+     * Scroll this guess into viewport when added
+     * otherwise it might not be obvious on smaller viewport
+     */
+    containerRef.current?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'end'
+    })
+  }, [])
+
   const getBgClass = () => {
     if (percentage < 66.66) {
       return 'bg-red-50'
@@ -67,6 +79,7 @@ const Row: FC<RowProps> = ({ city, cityOfTheDay }) => {
 
   return (
     <li
+      ref={containerRef}
       className={clsx(
         getBgClass(),
         'text-xl',
@@ -77,7 +90,8 @@ const Row: FC<RowProps> = ({ city, cityOfTheDay }) => {
         'rounded-md',
         'py-2',
         'px-4',
-        'md:py-4'
+        'md:py-4',
+        'scroll-m-28'
       )}
     >
       <div

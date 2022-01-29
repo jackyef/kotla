@@ -18,7 +18,7 @@ export const GameResult = () => {
   return (
     <>
       <h3 className={clsx('text-lg', 'mt-4')}>Kotla hari ini</h3>
-      <p className={clsx('pl-2', 'text-gray-500', 'text-xs')}>
+      <p className={clsx('text-gray-500', 'text-xs')}>
         Mohon untuk tetap dirahasiakan
       </p>
 
@@ -36,8 +36,8 @@ export const GameResult = () => {
         <p className={clsx('text-teal-600', 'font-semibold', 'text-base')}>
           {cityOfTheDay.name}
         </p>
-        <p className={clsx('pl-2', 'text-gray-500', 'text-sm')}>
-          {cityOfTheDay.name} adalah sebuah kabupaten/kota di provinsi{' '}
+        <p className={clsx('text-gray-500', 'text-sm')}>
+          {cityOfTheDay.name} adalah sebuah {cityOfTheDay.type} di provinsi{' '}
           {cityOfTheDay.province}
         </p>
         <a

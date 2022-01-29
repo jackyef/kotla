@@ -52,15 +52,15 @@ const Home: NextPage = () => {
   return (
     <>
       <MetaTags />
-      {cityOfTheDay && cityOfTheDay.province ? (
-        <div className={clsx('w-32', 'h-32', 'relative', 'mx-auto', 'mb-8')}>
+      <div className={clsx('w-32', 'h-32', 'relative', 'mx-auto', 'mb-8')}>
+        {cityOfTheDay && cityOfTheDay.province ? (
           <Image
             layout="fill"
             src={`/provinces/${cityOfTheDay.province.toLowerCase()}.svg`}
-            alt="map"
+            alt="provinsi kotla hari ini"
           />
-        </div>
-      ) : null}
+        ) : null}
+      </div>
       <Guesses.Container>
         {!isLoading &&
           guesses.map((guessedCity) => (

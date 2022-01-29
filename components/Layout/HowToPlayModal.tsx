@@ -9,20 +9,23 @@ const mockCities = [
     name: 'Bandung',
     lat: -6.95,
     lng: 107.5667,
-    province: 'Jawa Barat'
+    province: 'Jawa Barat',
+    type: 'kota' as const
   },
   {
     name: 'Medan',
     lat: 3.6667,
     lng: 98.6667,
-    province: 'Sumatera Utara'
+    province: 'Sumatera Utara',
+    type: 'kota' as const
   },
 
   {
     name: 'Padang',
     lat: -0.9556,
     lng: 100.3606,
-    province: 'Sumatera Barat'
+    province: 'Sumatera Barat',
+    type: 'kota' as const
   }
 ]
 
@@ -50,8 +53,7 @@ export const HowToPlayModal = ({ onClose, isOpen }: Props) => {
         Tebak <strong className="uppercase">Kotla</strong> dalam 6 kesempatan.
       </Paragraph>
       <Paragraph>
-        Setiap tebakan harus merupakan nama kota yang berada dalam daftar Kotla.
-        Tidak semua kota di Indonesia termasuk dalam daftar Kotla.
+        Setiap tebakan harus merupakan nama kota (atau kabupaten) di Indonesia.
       </Paragraph>
       <Paragraph>
         Setelah jawaban dikirimkan, warna huruf akan berubah untuk menunjukkan

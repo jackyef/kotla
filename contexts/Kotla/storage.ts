@@ -9,8 +9,8 @@ import {
 if (typeof window !== 'undefined') {
   localForage.config({
     driver: localForage.LOCALSTORAGE,
-    name: '__kotla',
-    version: 1 // Changes in type GameState and AllTimeStats should bump this number,
+    name: '__kotla.1', // Changes in type GameState and AllTimeStats should bump this number
+    version: 1
   })
 }
 

@@ -50,7 +50,10 @@ export const Highlight = ({ city, cityOfTheDay }: Props) => {
       className={clsx('flex', 'gap-1', 'items-center')}
     >
       {city.name.split('').map((letter, index) => {
-        if (cityOfTheDay.name.includes(letter)) {
+        letter = letter.toLowerCase()
+        const cityOfTheDayName = cityOfTheDay.name.toLowerCase()
+
+        if (cityOfTheDayName.includes(letter)) {
           foundLetters[letter] = true
         }
 

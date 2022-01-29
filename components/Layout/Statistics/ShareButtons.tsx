@@ -128,12 +128,15 @@ const Countdown = () => {
 }
 
 export const ShareButtons = () => {
-  const { guesses, cityOfTheDay } = useContext(KotlaContext)
+  const { guesses, cityOfTheDay, gameState } = useContext(KotlaContext)
 
   const generateText = () => {
     let output = template
       .replace(':kotlaSeries:', getKotlaSeriesNumber())
-      .replace(':guessCount:', String(guesses.length))
+      .replace(
+        ':guessCount:',
+        gameState === 'lost' ? 'X' : String(guesses.length)
+      )
 
     for (let i = 0; i < 6; i += 1) {
       const guess = guesses[i]

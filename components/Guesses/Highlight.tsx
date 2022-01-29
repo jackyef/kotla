@@ -41,7 +41,8 @@ type Props = {
 }
 
 export const Highlight = ({ city, cityOfTheDay }: Props) => {
-  const isCorrectAnswer = city.name === cityOfTheDay.name
+  const isCorrectAnswer =
+    city.name === cityOfTheDay.name && city.type === cityOfTheDay.type
   const foundLetters: Record<string, boolean> = {}
 
   return (

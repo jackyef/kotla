@@ -55,14 +55,41 @@ export const KotlaProvider: FC = ({ children }) => {
     setModalState(newModalState)
   }
 
-  const guess = (cityName: string) => {
-    if (!cityOfTheDay || !cityName) return
+  const guess = (guessed: string | `${string}__${string}`) => {
+    if (!cityOfTheDay || !guessed) return
 
+    // The `guessed` string can either be
+    // 1. a normal string (when the user immediately submit without clicking on one of the autocomplete options)
+    // 2. a `cityName__cityType` string (when the user clicks on one of the autocomplete options)
+    // This is required to handle names that can be either kabupaten or kota
+    // e.g.: Kabupaten Madiun and Kota Madiun
+    // In all places where we display the name though, we only show the cityName
+    // by doing const [shownValue] = value.split('__')
+    const [cityName, cityType] = guessed.split('__')
     const lowercasedCityName = cityName.toLowerCase()
 
-    const city = cities.find(
+    const possibleCities = cities.filter(
       (city) => city.name.toLowerCase() === lowercasedCityName
     )
+
+    if (possibleCities.length === 0) {
+      toast.error('Kota tidak ada dalam daftar Kotla')
+
+      return
+    }
+
+    if (possibleCities.length === 2 && !cityType) {
+      toast.error(
+        `Silahkan pilih opsi yang spesifik antara kabupaten atau kota "${cityName}"`
+      )
+
+      return
+    }
+
+    const city =
+      possibleCities.length === 2
+        ? possibleCities.find((c) => c.type === cityType)
+        : possibleCities[0]
 
     if (!city) {
       toast.error('Kota tidak ada dalam daftar Kotla')
@@ -71,14 +98,18 @@ export const KotlaProvider: FC = ({ children }) => {
     }
 
     if (
-      gameState.guesses.find((c) => c.name.toLowerCase() === lowercasedCityName)
+      gameState.guesses.find((c) => {
+        return (
+          c.name.toLowerCase() === lowercasedCityName && c.type === cityType
+        )
+      })
     ) {
       toast.error('Kota sudah ditebak sebelumnya')
 
       return
     }
 
-    if (city.name === cityOfTheDay.name) {
+    if (city.name === cityOfTheDay.name && city.type === cityOfTheDay.type) {
       setGameState((prev) => {
         const guessCount = prev.guesses.length + 1
         setAllTimeStats((prev) => {

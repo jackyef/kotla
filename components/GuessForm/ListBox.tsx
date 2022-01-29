@@ -1,7 +1,6 @@
 import { FC } from 'react'
 import { Listbox as _Listbox } from '@headlessui/react'
 import clsx from 'clsx'
-import { REGENCIES_WITH_SAME_NAME } from '@/utils/dataSources/cities'
 
 interface HighlighterProps {
   value: string
@@ -52,6 +51,8 @@ type ItemProps = {
 }
 
 const Item = ({ onClick, value, query, label }: ItemProps) => {
+  const [shownValue] = value.split('__')
+
   return (
     <button
       role="listitem"
@@ -74,7 +75,7 @@ const Item = ({ onClick, value, query, label }: ItemProps) => {
         'items-center'
       )}
     >
-      <Highlighter value={value} query={query} />
+      <Highlighter value={shownValue} query={query} />
       {label && (
         <span className={clsx('ml-1', 'text-gray-500', 'text-sm')}>
           {label}

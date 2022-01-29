@@ -4,7 +4,7 @@ import {
   getDistance,
   MAX_DISTANCE_KM
 } from '@/lib/geo/calc'
-import { City } from '@/utils/dataSources/cities'
+import { City, REGENCIES_WITH_SAME_NAME } from '@/utils/dataSources/cities'
 import clsx from 'clsx'
 import { FC, useEffect, useMemo, useRef } from 'react'
 import { Highlight, Letter } from './Highlight'
@@ -32,7 +32,8 @@ const Row: FC<RowProps> = ({ city, cityOfTheDay }) => {
     [distance]
   )
 
-  const isCorrectAnswer = city.name === cityOfTheDay.name
+  const isCorrectAnswer =
+    city.name === cityOfTheDay.name && city.type === cityOfTheDay.type
 
   const { emoji: bearingDirectionEmoji, label: bearingDirectionLabel } =
     useMemo(
@@ -98,6 +99,11 @@ const Row: FC<RowProps> = ({ city, cityOfTheDay }) => {
         className={clsx('flex-1', 'flex', 'items-center', 'overflow-x-auto')}
       >
         <Highlight city={city} cityOfTheDay={cityOfTheDay} />
+        {Boolean(REGENCIES_WITH_SAME_NAME[city.name]) && (
+          <span className={clsx('text-sm', 'text-gray-500', 'ml-2')}>
+            ({city.type})
+          </span>
+        )}
       </div>
       <div
         className={clsx(

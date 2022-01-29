@@ -53,7 +53,7 @@ const Home: NextPage = () => {
     <>
       <MetaTags />
       {cityOfTheDay && cityOfTheDay.province ? (
-        <div className={clsx('w-32', 'h-32', 'relative', 'mx-auto')}>
+        <div className={clsx('w-32', 'h-32', 'relative', 'mx-auto', 'mb-8')}>
           <Image
             layout="fill"
             src={`/provinces/${cityOfTheDay.province.toLowerCase()}.svg`}

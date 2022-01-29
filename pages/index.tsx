@@ -6,6 +6,7 @@ import { KotlaContext, MAX_GUESS_COUNT } from '@/contexts/Kotla'
 import clsx from 'clsx'
 import { resetStorage } from '@/contexts/Kotla/storage'
 import { MetaTags } from '@/components/MetaTags/MetaTags'
+import Image from 'next/image'
 
 const Home: NextPage = () => {
   const { guesses, guess, gameState, isLoading, cityOfTheDay, hasError } =
@@ -51,6 +52,15 @@ const Home: NextPage = () => {
   return (
     <>
       <MetaTags />
+      {cityOfTheDay && cityOfTheDay.province ? (
+        <div className={clsx('w-32', 'h-32', 'relative', 'mx-auto')}>
+          <Image
+            layout="fill"
+            src={`/provinces/${cityOfTheDay.province.toLowerCase()}.svg`}
+            alt="map"
+          />
+        </div>
+      ) : null}
       <Guesses.Container>
         {!isLoading &&
           guesses.map((guessedCity) => (

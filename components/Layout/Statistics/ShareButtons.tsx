@@ -19,14 +19,16 @@ const getKotlaSeriesNumber = () => {
   )
 }
 
-const getLetterBoxes = (guess: City, answer: City) => {
+const getLetterBoxes = (guess: City, answer: City, longestGuess: City) => {
   const foundLetters: Record<string, boolean> = {}
+  const isCorrectAnswer =
+    guess.name === answer.name && guess.type === answer.type
 
   let output = guess.name
     .split('')
     .map((letter, index) => {
       if (index > answer.name.length - 1) {
-        return
+        return isCorrectAnswer ? '🟩' : '⬜'
       }
 
       if (answer.name.includes(letter)) {
@@ -45,14 +47,15 @@ const getLetterBoxes = (guess: City, answer: City) => {
     })
     .join('')
 
-  if (answer.name.length - guess.name.length > 0) {
+  if (longestGuess.name.length - guess.name.length > 0) {
     const remainingLetters = new Array(
-      answer.name.length - guess.name.length
+      longestGuess.name.length - guess.name.length
     ).fill(null)
 
     remainingLetters.forEach(() => {
-      // pad with '⬛'
-      output += '⬛'
+      // pad with '⬜' or '🟩'
+      output += isCorrectAnswer ? '🟩' : '⬜'
+      // console.log('forEach', output)
     })
   }
 
@@ -137,6 +140,9 @@ export const ShareButtons = () => {
         ':guessCount:',
         gameState === 'lost' ? 'X' : String(guesses.length)
       )
+    const longestGuess = guesses.reduce((acc, guess) =>
+      guess.name.length > acc.name.length ? guess : acc
+    )
 
     for (let i = 0; i < 6; i += 1) {
       const guess = guesses[i]
@@ -144,10 +150,11 @@ export const ShareButtons = () => {
       output = output.replace(
         `:guess${i}:\n`,
         guess
-          ? `${getLetterBoxes(guess, cityOfTheDay)} ${getGuessSymbol(
+          ? `${getLetterBoxes(
               guess,
-              cityOfTheDay
-            )}\n`
+              cityOfTheDay,
+              longestGuess
+            )} ${getGuessSymbol(guess, cityOfTheDay)}\n`
           : ''
       )
     }

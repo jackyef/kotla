@@ -82,8 +82,6 @@ export const GuessForm = ({ onSubmit, disabled }: Props) => {
     return filterCities(value)
   }, [value])
 
-  console.log({ value, filteredCities })
-
   return (
     <>
       {shouldShowOptionsList && (

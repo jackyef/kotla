@@ -100,7 +100,11 @@ const Row: FC<RowProps> = ({ city, cityOfTheDay }) => {
       >
         <Highlight city={city} cityOfTheDay={cityOfTheDay} />
         {Boolean(REGENCIES_WITH_SAME_NAME[city.name]) && (
-          <span className={clsx('text-sm', 'text-gray-500', 'ml-2')}>
+          <span
+            className={clsx('text-sm', 'text-gray-500', 'ml-2', {
+              'text-inherit': isCorrectAnswer
+            })}
+          >
             ({city.type})
           </span>
         )}

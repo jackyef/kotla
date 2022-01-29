@@ -12,6 +12,26 @@ const toTitleCase = (str) => {
   })
 }
 
+function shuffle(array) {
+  let currentIndex = array.length,
+    randomIndex
+
+  // While there remain elements to shuffle...
+  while (currentIndex != 0) {
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex)
+    currentIndex--
+
+    // And swap it with the current element.
+    ;[array[currentIndex], array[randomIndex]] = [
+      array[randomIndex],
+      array[currentIndex]
+    ]
+  }
+
+  return array
+}
+
 /**
  * @type { import('./cities').City[] }
  */
@@ -23,6 +43,11 @@ const output = regencies.map((r) => {
     province: toTitleCase(provinces.find((p) => p.id === r.province_id).name)
   }
 })
+
+// Shuffle it so it's not sorted by province
+// Otherwise it might be too easy to guess since the
+// numberOfTheDay is also increasing day-by-day
+shuffle(output)
 
 fs.writeFileSync(
   path.join(__dirname, 'cities.json'),

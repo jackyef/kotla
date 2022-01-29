@@ -37,7 +37,7 @@ export const GameResult = () => {
           {cityOfTheDay.name}
         </p>
         <p className={clsx('text-gray-500', 'text-sm')}>
-          {cityOfTheDay.name} adalah sebuah kota/kabupaten di provinsi{' '}
+          {cityOfTheDay.name} adalah sebuah {cityOfTheDay.type} di provinsi{' '}
           {cityOfTheDay.province}
         </p>
         <a

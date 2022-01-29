@@ -36,11 +36,14 @@ function shuffle(array) {
  * @type { import('./cities').City[] }
  */
 const output = regencies.map((r) => {
+  const isKabupaten = r.name.includes('KABUPATEN ')
+
   return {
     name: toTitleCase(r.name.replace('KABUPATEN ', '').replace('KOTA ', '')),
     lat: r.latitude,
     lng: r.longitude,
-    province: toTitleCase(provinces.find((p) => p.id === r.province_id).name)
+    province: toTitleCase(provinces.find((p) => p.id === r.province_id).name),
+    type: isKabupaten ? 'kabupaten' : 'kota'
   }
 })
 
@@ -48,6 +51,11 @@ const output = regencies.map((r) => {
 // Otherwise it might be too easy to guess since the
 // numberOfTheDay is also increasing day-by-day
 shuffle(output)
+
+const summary = {}
+output.forEach((o) => {
+  summary[o.name] = summary[o.name] ? summary[o.name] + 1 : 1
+})
 
 fs.writeFileSync(
   path.join(__dirname, 'cities.json'),

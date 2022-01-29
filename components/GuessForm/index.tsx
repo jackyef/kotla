@@ -1,4 +1,8 @@
-import { cities, City } from '@/utils/dataSources/cities'
+import {
+  cities,
+  City,
+  REGENCIES_WITH_SAME_NAME
+} from '@/utils/dataSources/cities'
 import { ListBox } from './ListBox'
 import clsx from 'clsx'
 import { FormEvent, useMemo, useRef, useState } from 'react'
@@ -78,6 +82,8 @@ export const GuessForm = ({ onSubmit, disabled }: Props) => {
     return filterCities(value)
   }, [value])
 
+  console.log({ value, filteredCities })
+
   return (
     <>
       {shouldShowOptionsList && (
@@ -119,11 +125,16 @@ export const GuessForm = ({ onSubmit, disabled }: Props) => {
           {shouldShowOptionsList && (
             <ListBox.Container>
               {filteredCities.map((c) => {
+                const shouldShowLabel = Boolean(
+                  REGENCIES_WITH_SAME_NAME[c.name]
+                )
+
                 return (
                   <ListBox.Item
-                    key={c.name}
+                    key={`${c.type}${c.name}`}
                     value={c.name}
                     query={value}
+                    label={shouldShowLabel ? `(${c.type})` : undefined}
                     onClick={(newValue) => {
                       setValue(newValue)
                       returnFocusToInput()

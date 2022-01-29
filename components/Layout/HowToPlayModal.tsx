@@ -9,20 +9,23 @@ const mockCities = [
     name: 'Bandung',
     lat: -6.95,
     lng: 107.5667,
-    province: 'Jawa Barat'
+    province: 'Jawa Barat',
+    type: 'kota' as const
   },
   {
     name: 'Medan',
     lat: 3.6667,
     lng: 98.6667,
-    province: 'Sumatera Utara'
+    province: 'Sumatera Utara',
+    type: 'kota' as const
   },
 
   {
     name: 'Padang',
     lat: -0.9556,
     lng: 100.3606,
-    province: 'Sumatera Barat'
+    province: 'Sumatera Barat',
+    type: 'kota' as const
   }
 ]
 

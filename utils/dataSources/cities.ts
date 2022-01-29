@@ -13,7 +13,6 @@ export type City = {
  * e.g.: There is a Kapubaten Mediun and Kota Madiun
  */
 export const REGENCIES_WITH_SAME_NAME: Record<string, 1> = {
-  Jepara: 1,
   Madiun: 1,
   Kupang: 1,
   Bogor: 1,

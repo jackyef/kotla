@@ -19,14 +19,22 @@ const getKotlaSeriesNumber = () => {
   )
 }
 
+// If we have more than 13 blocks, we risk going higher than 280 character limit of Twitter
+// I am settling on 10 blocks for now to give user some space for their own tweet.
+const MAX_LETTER_PER_ROW = 10
+
 const getLetterBoxes = (guess: City, answer: City, longestGuess: City) => {
   const foundLetters: Record<string, boolean> = {}
   const isCorrectAnswer =
     guess.name === answer.name && guess.type === answer.type
+  let addedLetters = 0
 
   let output = guess.name
     .split('')
     .map((letter, index) => {
+      if (addedLetters >= MAX_LETTER_PER_ROW) return
+
+      addedLetters += 1
       if (index > answer.name.length - 1) {
         return isCorrectAnswer ? '🟩' : '⬜'
       }
@@ -47,12 +55,17 @@ const getLetterBoxes = (guess: City, answer: City, longestGuess: City) => {
     })
     .join('')
 
+  if (addedLetters >= MAX_LETTER_PER_ROW) return output
+
   if (longestGuess.name.length - guess.name.length > 0) {
     const remainingLetters = new Array(
       longestGuess.name.length - guess.name.length
     ).fill(null)
 
     remainingLetters.forEach(() => {
+      if (addedLetters >= MAX_LETTER_PER_ROW) return
+
+      addedLetters += 1
       // pad with '⬜' or '🟩'
       output += isCorrectAnswer ? '🟩' : '⬜'
       // console.log('forEach', output)

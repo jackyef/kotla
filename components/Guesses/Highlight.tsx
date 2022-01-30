@@ -66,7 +66,7 @@ export const Highlight = ({ city, cityOfTheDay }: Props) => {
         }
 
         if (foundLetters[letter]) {
-          if (letter === cityOfTheDay.name[index]) {
+          if (letter === cityOfTheDayName[index]) {
             return (
               <Letter key={index} isCorrectIndex>
                 {letter}

@@ -26,7 +26,8 @@ export const Letter: FC<LetterProps> = ({
         {
           'text-green-700': isCorrectIndex,
           'text-yellow-500': isFoundInAnswer,
-          'text-white': isCorrectAnswer
+          'text-white': isCorrectAnswer,
+          'text-black': !isCorrectAnswer && !isFoundInAnswer && !isCorrectIndex
         }
       )}
     >
@@ -43,7 +44,14 @@ type Props = {
 export const Highlight = ({ city, cityOfTheDay }: Props) => {
   const isCorrectAnswer =
     city.name === cityOfTheDay.name && city.type === cityOfTheDay.type
-  const foundLetters: Record<string, boolean> = {}
+  const lettersOccurence: Record<string, number> = {}
+  const cityOfTheDayName = cityOfTheDay.name.toLowerCase()
+
+  cityOfTheDayName.split('').forEach((letter) => {
+    lettersOccurence[letter] = lettersOccurence[letter]
+      ? lettersOccurence[letter] + 1
+      : 1
+  })
 
   return (
     <span
@@ -52,10 +60,12 @@ export const Highlight = ({ city, cityOfTheDay }: Props) => {
     >
       {city.name.split('').map((letter, index) => {
         letter = letter.toLowerCase()
-        const cityOfTheDayName = cityOfTheDay.name.toLowerCase()
+        let found = false
 
-        if (cityOfTheDayName.includes(letter)) {
-          foundLetters[letter] = true
+        if (lettersOccurence[letter] > 0) {
+          lettersOccurence[letter] -= 1
+
+          found = true
         }
 
         if (isCorrectAnswer) {
@@ -66,7 +76,7 @@ export const Highlight = ({ city, cityOfTheDay }: Props) => {
           )
         }
 
-        if (foundLetters[letter]) {
+        if (found) {
           if (letter === cityOfTheDayName[index]) {
             return (
               <Letter key={index} isCorrectIndex>

@@ -5,6 +5,7 @@ import {
   MAX_DISTANCE_KM
 } from '@/lib/geo/calc'
 import { City } from '@/utils/dataSources/cities'
+import { REGENCIES_WITH_SAME_NAME } from '@/utils/dataSources/constants'
 import clsx from 'clsx'
 import { FC, useEffect, useMemo, useRef } from 'react'
 import { Highlight, Letter } from './Highlight'
@@ -32,7 +33,8 @@ const Row: FC<RowProps> = ({ city, cityOfTheDay }) => {
     [distance]
   )
 
-  const isCorrectAnswer = city.name === cityOfTheDay.name
+  const isCorrectAnswer =
+    city.name === cityOfTheDay.name && city.type === cityOfTheDay.type
 
   const { emoji: bearingDirectionEmoji, label: bearingDirectionLabel } =
     useMemo(
@@ -51,7 +53,7 @@ const Row: FC<RowProps> = ({ city, cityOfTheDay }) => {
      * Scroll this guess into viewport when added
      * otherwise it might not be obvious on smaller viewport
      */
-    containerRef.current?.scrollIntoView({
+    containerRef.current?.scrollIntoView?.({
       behavior: 'smooth',
       block: 'end'
     })
@@ -98,6 +100,15 @@ const Row: FC<RowProps> = ({ city, cityOfTheDay }) => {
         className={clsx('flex-1', 'flex', 'items-center', 'overflow-x-auto')}
       >
         <Highlight city={city} cityOfTheDay={cityOfTheDay} />
+        {Boolean(REGENCIES_WITH_SAME_NAME[city.name]) && (
+          <span
+            className={clsx('text-sm', 'text-gray-500', 'ml-2', {
+              'text-inherit': isCorrectAnswer
+            })}
+          >
+            ({city.type})
+          </span>
+        )}
       </div>
       <div
         className={clsx(

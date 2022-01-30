@@ -1,8 +1,5 @@
-import {
-  cities,
-  City,
-  REGENCIES_WITH_SAME_NAME
-} from '@/utils/dataSources/cities'
+import { cities, City } from '@/utils/dataSources/cities'
+import { REGENCIES_WITH_SAME_NAME } from '@/utils/dataSources/constants'
 import { ListBox } from './ListBox'
 import clsx from 'clsx'
 import { FormEvent, useMemo, useRef, useState } from 'react'
@@ -82,6 +79,8 @@ export const GuessForm = ({ onSubmit, disabled }: Props) => {
     return filterCities(value)
   }, [value])
 
+  const [shownValue] = value.split('__')
+
   return (
     <>
       {shouldShowOptionsList && (
@@ -112,7 +111,7 @@ export const GuessForm = ({ onSubmit, disabled }: Props) => {
         >
           <Input
             ref={inputRef}
-            value={value}
+            value={shownValue}
             className={clsx('flex-1')}
             placeholder="Tebak di sini"
             onChange={(e) => {
@@ -129,8 +128,8 @@ export const GuessForm = ({ onSubmit, disabled }: Props) => {
 
                 return (
                   <ListBox.Item
-                    key={`${c.type}${c.name}`}
-                    value={c.name}
+                    key={`${c.name}__${c.type}`}
+                    value={`${c.name}__${c.type}`}
                     query={value}
                     label={shouldShowLabel ? `(${c.type})` : undefined}
                     onClick={(newValue) => {

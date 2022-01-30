@@ -1,10 +1,7 @@
 import { useEffect, useState } from 'react'
 import { DEFAULT_GAME_STATE, GameState } from '../constants'
-import {
-  getTodayDateString,
-  restoreGameState,
-  storeGameState
-} from '../storage'
+import { restoreGameState, storeGameState } from '../storage'
+import { getTodayDateString } from '../helpers'
 
 export const useGameState = () => {
   const [gameState, setGameState] = useState<GameState>(DEFAULT_GAME_STATE)

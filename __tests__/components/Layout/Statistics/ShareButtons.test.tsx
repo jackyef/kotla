@@ -34,7 +34,7 @@ describe('components/Layout/Statistics/ShareButtons', () => {
         const answer = mockCities[1]
         const output = getLetterBoxes(guess, answer, longestGuess)
 
-        expect(output).toBe('⬜🟩🟨⬜⬜⬜⬜⬜')
+        expect(output).toBe('🟨🟩🟨⬜⬜⬜⬜⬜')
       })
 
       it('pads with 🟩 when current guess is the correct answer', () => {
@@ -53,7 +53,7 @@ describe('components/Layout/Statistics/ShareButtons', () => {
           const answer = mockCities[1]
           const output = getLetterBoxes(guess, answer, longestGuess)
 
-          expect(output).toBe('⬜🟩🟨⬜⬜⬜⬜⬜⬜⬜')
+          expect(output).toBe('🟨🟩🟨⬜⬜⬜⬜⬜⬜⬜')
         })
 
         it('pads with 🟩 when current guess is the correct answer, up to 10 total', () => {

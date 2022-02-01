@@ -28,27 +28,39 @@ export const getLetterBoxes = (
   answer: City,
   longestGuess: City
 ) => {
-  const foundLetters: Record<string, boolean> = {}
+  const lettersOccurence: Record<string, number> = {}
   const isCorrectAnswer =
     guess.name === answer.name && guess.type === answer.type
   let addedLetters = 0
+  const answerName = answer.name.toLowerCase()
+
+  answerName.split('').forEach((letter) => {
+    lettersOccurence[letter] = lettersOccurence[letter]
+      ? lettersOccurence[letter] + 1
+      : 1
+  })
 
   let output = guess.name
     .split('')
     .map((letter, index) => {
       if (addedLetters >= MAX_LETTER_PER_ROW) return
 
+      letter = letter.toLowerCase()
+      let found = false
+
       addedLetters += 1
       if (index > answer.name.length - 1) {
         return isCorrectAnswer ? '🟩' : '⬜'
       }
 
-      if (answer.name.includes(letter)) {
-        foundLetters[letter] = true
+      if (lettersOccurence[letter] > 0) {
+        lettersOccurence[letter] -= 1
+
+        found = true
       }
 
-      if (foundLetters[letter]) {
-        if (letter === answer.name[index]) {
+      if (found) {
+        if (letter === answerName[index]) {
           return '🟩'
         } else {
           return '🟨'

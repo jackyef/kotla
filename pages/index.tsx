@@ -53,7 +53,10 @@ const Home: NextPage = () => {
     <>
       <MetaTags />
       <div className={clsx('w-32', 'h-32', 'relative', 'mx-auto', 'mb-8')}>
-        {cityOfTheDay && cityOfTheDay.province ? (
+        {cityOfTheDay &&
+        cityOfTheDay.province &&
+        // We are missing the svg map of Kalimantan Timur currently
+        cityOfTheDay.province !== 'Kalimantan Timur' ? (
           <Image
             layout="fill"
             src={`/provinces/${cityOfTheDay.province.toLowerCase()}.svg`}

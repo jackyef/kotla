@@ -135,7 +135,7 @@ export const KotlaProvider: FC = ({ children }) => {
       })
 
       if (gameState.guesses.length < 1) {
-        toast.success('Curang kah?')
+        toast.success('Anjayyy')
       } else if (gameState.guesses.length < 2) {
         toast.success('Sakti!')
       } else if (gameState.guesses.length <= 4) {

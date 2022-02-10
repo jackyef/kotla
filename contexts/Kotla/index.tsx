@@ -134,16 +134,25 @@ export const KotlaProvider: FC = ({ children }) => {
         }
       })
 
-      if (gameState.guesses.length < 1) {
+      const guessCount = gameState.guesses.length + 1
+
+      if (guessCount === 1) {
         toast.success('Anjayyy')
-      } else if (gameState.guesses.length < 2) {
+      } else if (guessCount <= 2) {
         toast.success('Sakti!')
-      } else if (gameState.guesses.length <= 4) {
+      } else if (guessCount <= 4) {
         toast.success('Tjakep!')
-      } else if (gameState.guesses.length <= 5) {
+      } else if (guessCount <= 5) {
         toast.success('Mantap')
       } else {
         toast.success('Nyaris')
+      }
+
+      try {
+        // @ts-expect-error
+        gtag('event', `guess ${guessCount}/6`)
+      } catch {
+        // noop
       }
 
       setTimeout(() => {

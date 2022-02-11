@@ -194,10 +194,22 @@ export const ShareButtons = () => {
   const handleShare = () => {
     const text = generateText()
     if ('share' in navigator) {
+      try {
+        // @ts-expect-error
+        gtag('event', `share:web_share_api`)
+      } catch {
+        // no-op
+      }
       navigator.share({
         text: text
       })
     } else {
+      try {
+        // @ts-expect-error
+        gtag('event', `share:clipboard`)
+      } catch {
+        // no-op
+      }
       navigator.clipboard.writeText(text)
 
       toast.info('Disalin ke clipboard')
@@ -228,6 +240,12 @@ export const ShareButtons = () => {
         </Button>
         <Button
           onClick={() => {
+            try {
+              // @ts-expect-error
+              gtag('event', `share:twitter`)
+            } catch {
+              // no-op
+            }
             window.open(
               `https://twitter.com/intent/tweet?text=${encodeURIComponent(
                 generateText()

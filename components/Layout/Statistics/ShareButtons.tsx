@@ -1,5 +1,6 @@
 import { Button } from '@/components/inputs/Button'
 import { KotlaContext } from '@/contexts/Kotla'
+import { trackEvent } from '@/lib/analytics/track'
 import { getBearing, getBearingDirection, getDistance } from '@/lib/geo/calc'
 import { toast } from '@/lib/toast'
 import { City } from '@/utils/dataSources/cities'
@@ -194,22 +195,14 @@ export const ShareButtons = () => {
   const handleShare = () => {
     const text = generateText()
     if ('share' in navigator) {
-      try {
-        // @ts-expect-error
-        gtag('event', `share:web_share_api`)
-      } catch {
-        // no-op
-      }
+      trackEvent(`share:web_share_api`)
+
       navigator.share({
         text: text
       })
     } else {
-      try {
-        // @ts-expect-error
-        gtag('event', `share:clipboard`)
-      } catch {
-        // no-op
-      }
+      trackEvent(`share:clipboard`)
+
       navigator.clipboard.writeText(text)
 
       toast.info('Disalin ke clipboard')
@@ -240,12 +233,8 @@ export const ShareButtons = () => {
         </Button>
         <Button
           onClick={() => {
-            try {
-              // @ts-expect-error
-              gtag('event', `share:twitter`)
-            } catch {
-              // no-op
-            }
+            trackEvent(`share:twitter`)
+
             window.open(
               `https://twitter.com/intent/tweet?text=${encodeURIComponent(
                 generateText()

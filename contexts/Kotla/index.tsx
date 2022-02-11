@@ -8,6 +8,7 @@ import { restoreNumberOfTheDay, storeNumberOfTheDay } from './storage'
 import { getTodayDateString } from './helpers'
 import { toast } from '@/lib/toast'
 import { REGENCIES_WITH_SAME_NAME } from '@/utils/dataSources/constants'
+import { trackEvent } from '@/lib/analytics/track'
 
 export type ModalState = 'help' | 'stats' | null
 
@@ -148,12 +149,7 @@ export const KotlaProvider: FC = ({ children }) => {
         toast.success('Nyaris')
       }
 
-      try {
-        // @ts-expect-error
-        gtag('event', `guess ${guessCount}/6`)
-      } catch {
-        // noop
-      }
+      trackEvent(`guess ${guessCount}/6`)
 
       setTimeout(() => {
         openModal('stats')
@@ -183,6 +179,8 @@ export const KotlaProvider: FC = ({ children }) => {
             : ''
         }`
       )
+
+      trackEvent(`guess X/6`)
 
       setTimeout(() => {
         openModal('stats')

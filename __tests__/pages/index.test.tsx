@@ -214,5 +214,36 @@ describe('pages/index', () => {
         })
       })
     })
+
+    describe('when the guess match a previous guess', () => {
+      it('shows a toast error message', async () => {
+        const { getByPlaceholderText, getByText, getByLabelText } =
+          renderWithProviders(<HomePage />)
+
+        const guessInput = getByPlaceholderText('Tebak di sini')
+        const guessButton = getByText('Tebak')
+
+        expect(true).toBe(true)
+        await waitFor(() => {
+          expect(guessButton).not.toBeDisabled()
+        })
+
+        fireEvent.change(guessInput, { target: { value: 'medan' } })
+        fireEvent.click(guessButton)
+
+        await waitFor(() => {
+          expect(getByLabelText('Medan')).toBeInTheDocument()
+        })
+
+        fireEvent.change(guessInput, { target: { value: 'medan' } })
+        fireEvent.click(guessButton)
+
+        await waitFor(() => {
+          expect(mockToast.error).toHaveBeenCalledWith(
+            'Kota sudah ditebak sebelumnya'
+          )
+        })
+      })
+    })
   })
 })

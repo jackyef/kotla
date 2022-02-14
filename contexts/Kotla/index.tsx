@@ -99,7 +99,7 @@ export const KotlaProvider: FC = ({ children }) => {
     if (
       gameState.guesses.find((c) => {
         return (
-          c.name.toLowerCase() === lowercasedCityName && c.type === cityType
+          c.name.toLowerCase() === lowercasedCityName && c.type === city.type
         )
       })
     ) {

@@ -127,7 +127,7 @@ describe('pages/index', () => {
     })
 
     describe('when the guess.name matches 2 cities in the list', () => {
-      it('shows a toast error when user just types and submits its guess', async () => {
+      it('shows a toast error when user just types and submits their guess', async () => {
         const { getByPlaceholderText, getByText } = renderWithProviders(
           <HomePage />
         )
@@ -215,7 +215,7 @@ describe('pages/index', () => {
       })
     })
 
-    describe('when the guess match a previous guess', () => {
+    describe('when the guess matches a previous guess', () => {
       it('shows a toast error message', async () => {
         const { getByPlaceholderText, getByText, getByLabelText } =
           renderWithProviders(<HomePage />)

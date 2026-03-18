@@ -38,3 +38,6 @@ yarn-error.log*
 
 # secret stuff
 .secret*
+
+# generated service worker
+/public/sw.js

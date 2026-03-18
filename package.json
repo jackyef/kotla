@@ -2,8 +2,8 @@
   "name": "kotla",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "node scripts/generate-sw.js && next dev",
+    "build": "node scripts/generate-sw.js && next build",
     "start": "next start",
     "lint": "next lint",
     "test": "jest __tests__"

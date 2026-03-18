@@ -8,6 +8,12 @@ import { toastOptions } from '@/lib/toast'
 import Head from 'next/head'
 import Script from 'next/script'
 
+if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+  })
+}
+
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <KotlaProvider>
